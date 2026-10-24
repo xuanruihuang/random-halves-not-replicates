@@ -1,0 +1,103 @@
+{
+ "rules": "Robustness of the CD4 null result to the gene set (A100; output of cd4_sc_extract_cells.py). For unexpressed and\nexpressed targets, random halves (r1) and sgRNA halves (sgRNA parity), on the same targets as clone_tests_cd4.py\n(>= 8 cells in every quarter side): share of targets with a positive cross-half signal and mean cross-half signal,\nfor four gene sets: all genes with control mean >= 0.1 (the main analyses), the 2,000 of these with the highest control\nmean, those without mitochondrial (MT-) and ribosomal-protein (RPL, RPS) genes, and genes with control mean >= 0.5. TCR\ngenes are excluded throughout; effects and the null-baseline reference as in clone_tests_cd4.py.\nUsage: geneset_robustness_cd4.py <cells_dir> <label> [<cells_dir> <label> ...] <out.json>",
+ "D1_rest": {
+  "n_unexpressed": 909,
+  "n_expressed": 787,
+  "sets": {
+   "all kept (control mean >= 0.1)": {
+    "n_genes": 7843,
+    "random_unexpressed_pos": 0.9933993399339934,
+    "random_unexpressed_mean": 6.791597558738299,
+    "random_expressed_pos": 0.9987293519695044,
+    "random_expressed_mean": 8.883168604246984,
+    "sgRNA_unexpressed_pos": 0.49944994499449946,
+    "sgRNA_unexpressed_mean": -0.036271246214057216,
+    "sgRNA_expressed_pos": 0.5616264294790343,
+    "sgRNA_expressed_mean": 1.6869427375385995
+   },
+   "top 2,000 by control mean": {
+    "n_genes": 2000,
+    "random_unexpressed_pos": 0.9977997799779978,
+    "random_unexpressed_mean": 4.024904762001075,
+    "random_expressed_pos": 0.9974587039390089,
+    "random_expressed_mean": 5.368437541823004,
+    "sgRNA_unexpressed_pos": 0.48734873487348734,
+    "sgRNA_unexpressed_mean": -0.032826196596067864,
+    "sgRNA_expressed_pos": 0.567979669631512,
+    "sgRNA_expressed_mean": 1.0917421558979425
+   },
+   "without MT-, RPL, RPS genes": {
+    "n_genes": 7832,
+    "random_unexpressed_pos": 0.9933993399339934,
+    "random_unexpressed_mean": 6.7105340450020075,
+    "random_expressed_pos": 0.9987293519695044,
+    "random_expressed_mean": 8.752797260246366,
+    "sgRNA_unexpressed_pos": 0.49724972497249725,
+    "sgRNA_unexpressed_mean": -0.04881282196801403,
+    "sgRNA_expressed_pos": 0.5641677255400254,
+    "sgRNA_expressed_mean": 1.618625913879017
+   },
+   "control mean >= 0.5": {
+    "n_genes": 2943,
+    "random_unexpressed_pos": 0.9955995599559956,
+    "random_unexpressed_mean": 4.854658249805144,
+    "random_expressed_pos": 0.9974587039390089,
+    "random_expressed_mean": 6.428036523780716,
+    "sgRNA_unexpressed_pos": 0.49174917491749176,
+    "sgRNA_unexpressed_mean": -0.03637254571815696,
+    "sgRNA_expressed_pos": 0.565438373570521,
+    "sgRNA_expressed_mean": 1.2819996507972662
+   }
+  }
+ },
+ "D2_rest": {
+  "n_unexpressed": 520,
+  "n_expressed": 515,
+  "sets": {
+   "all kept (control mean >= 0.1)": {
+    "n_genes": 7979,
+    "random_unexpressed_pos": 1.0,
+    "random_unexpressed_mean": 12.565514639865201,
+    "random_expressed_pos": 0.9980582524271845,
+    "random_expressed_mean": 16.31564061720423,
+    "sgRNA_unexpressed_pos": 0.5153846153846153,
+    "sgRNA_unexpressed_mean": 0.21142319864240405,
+    "sgRNA_expressed_pos": 0.5611650485436893,
+    "sgRNA_expressed_mean": 1.6761566425014423
+   },
+   "top 2,000 by control mean": {
+    "n_genes": 2000,
+    "random_unexpressed_pos": 1.0,
+    "random_unexpressed_mean": 7.3883695278774,
+    "random_expressed_pos": 0.9980582524271845,
+    "random_expressed_mean": 9.67176625356154,
+    "sgRNA_unexpressed_pos": 0.5134615384615384,
+    "sgRNA_unexpressed_mean": 0.10159469961246026,
+    "sgRNA_expressed_pos": 0.566990291262136,
+    "sgRNA_expressed_mean": 1.0285254425072703
+   },
+   "without MT-, RPL, RPS genes": {
+    "n_genes": 7968,
+    "random_unexpressed_pos": 1.0,
+    "random_unexpressed_mean": 12.435501578915263,
+    "random_expressed_pos": 0.9980582524271845,
+    "random_expressed_mean": 16.06752429812797,
+    "sgRNA_unexpressed_pos": 0.5057692307692307,
+    "sgRNA_unexpressed_mean": 0.20260092100839475,
+    "sgRNA_expressed_pos": 0.5611650485436893,
+    "sgRNA_expressed_mean": 1.5588361724893072
+   },
+   "control mean >= 0.5": {
+    "n_genes": 2997,
+    "random_unexpressed_pos": 1.0,
+    "random_unexpressed_mean": 8.957384220211098,
+    "random_expressed_pos": 0.9980582524271845,
+    "random_expressed_mean": 11.76272347679775,
+    "sgRNA_unexpressed_pos": 0.5134615384615384,
+    "sgRNA_unexpressed_mean": 0.12651057806371913,
+    "sgRNA_expressed_pos": 0.566990291262136,
+    "sgRNA_expressed_mean": 1.2551092897346743
+   }
+  }
+ }
+}

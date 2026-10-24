@@ -1,0 +1,49 @@
+{
+ "rules": "Null subtraction as an approximate correction without independent replicates (CD4 donors 1 and 2, resting and\nstimulated): mean random-half cross-half signal of expressed targets minus that of unexpressed targets, compared with\nthe sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of\nguide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json.\nUsage: null_subtraction_cd4.py <v1 data dir> <out.json>",
+ "rows": [
+  {
+   "donor": "D1",
+   "state": "rest",
+   "random": 8.883168604246984,
+   "sgRNA_half": 1.6869427375385995,
+   "null_random": 6.791597558738299,
+   "random_minus_null": 2.0915710455086858,
+   "sgRNA_related": 3.0414835923843784,
+   "random_over_sgRNA_half": 5.265838849520359,
+   "corrected_over_sgRNA_related": 0.6876811864926069
+  },
+  {
+   "donor": "D1",
+   "state": "stim48",
+   "random": 8.423876319076037,
+   "sgRNA_half": 1.3264750862803545,
+   "null_random": 7.082021324997401,
+   "random_minus_null": 1.341854994078636,
+   "sgRNA_related": 1.9697251371713993,
+   "random_over_sgRNA_half": 6.350572586099537,
+   "corrected_over_sgRNA_related": 0.6812397165249112
+  },
+  {
+   "donor": "D2",
+   "state": "rest",
+   "random": 16.31564061720423,
+   "sgRNA_half": 1.6761566425014423,
+   "null_random": 12.565514639865201,
+   "random_minus_null": 3.75012597733903,
+   "sgRNA_related": 3.0220367372236168,
+   "random_over_sgRNA_half": 9.733959346935077,
+   "corrected_over_sgRNA_related": 1.2409266674846309
+  },
+  {
+   "donor": "D2",
+   "state": "stim48",
+   "random": 16.634780368235237,
+   "sgRNA_half": 2.5805760772666924,
+   "null_random": 12.446156382798621,
+   "random_minus_null": 4.188623985436616,
+   "sgRNA_related": 3.831979673307678,
+   "random_over_sgRNA_half": 6.446149956506823,
+   "corrected_over_sgRNA_related": 1.0930705125116413
+  }
+ ]
+}

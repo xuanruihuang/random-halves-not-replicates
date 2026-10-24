@@ -39,3 +39,4 @@
 - Zenodo2026: Huang, X. random-halves-not-replicates (all versions). *Zenodo* https://doi.org/10.5281/zenodo.23476349 (2026).
 - Shesha2026: Raju, P. C. Shesha: self-consistency metrics for representational stability, version 0.2.29. *Zenodo* https://doi.org/10.5281/zenodo.18227453 (2026).
 - Raju2026b: Raju, P. C. Geometric stability: the missing axis of representations. Preprint at *arXiv* https://arxiv.org/abs/2601.09173 (2026).
+- PerturBench2025: Wu, Y. et al. PerturBench: benchmarking machine learning models for cellular perturbation analysis. In *Advances in Neural Information Processing Systems 38, Datasets and Benchmarks Track* (2025); preprint at *arXiv* https://arxiv.org/abs/2408.10609.

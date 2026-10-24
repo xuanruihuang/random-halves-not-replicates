@@ -141,7 +141,7 @@ Result file names refer to `data/` (see `data/README.md` for the producing outpu
 
 Tahoe-100M: the pipeline stage `tahoe`, its scripts and its result files (`dmso.json`, `tahoe_recompute.json`,
 `ceiling_tahoe.json`, `ci_tahoe.json`, `robust_tahoe.json`) remain in the repository and in the reproduction record, but
-since preprint v22 the paper reports the pooled CRISPR screens only.
+since preprint v22 the paper reports the pooled CRISPR screens only. The Tahoe-100M analyses (cell lines sharing a well) belong to a separate paper in preparation; the files here are kept as a dated record and are not cited by this preprint.
 
 ### Numbers in the text
 

@@ -40,3 +40,7 @@
 - Shesha2026: Raju, P. C. Shesha: self-consistency metrics for representational stability, version 0.2.29. *Zenodo* https://doi.org/10.5281/zenodo.18227453 (2026).
 - Raju2026b: Raju, P. C. Geometric stability: the missing axis of representations. Preprint at *arXiv* https://arxiv.org/abs/2601.09173 (2026).
 - PerturBench2025: Wu, Y. et al. PerturBench: benchmarking machine learning models for cellular perturbation analysis. In *Advances in Neural Information Processing Systems 38, Datasets and Benchmarks Track* (2025); preprint at *arXiv* https://arxiv.org/abs/2408.10609.
+- Cang2026: Cang, H. & Sun, S. Cell-level random splits leak group-owned answers in single-cell benchmarks. Preprint at *bioRxiv* https://doi.org/10.64898/2026.09.09.750484 (2026).
+- Schmidt2003: Schmidt, F. L., Le, H. & Ilies, R. Beyond alpha: an empirical examination of the effects of different sources of measurement error on reliability estimates for measures of individual-differences constructs. *Psychol. Methods* **8**, 206–224 (2003).
+- Li2011: Li, Q., Brown, J. B., Huang, H. & Bickel, P. J. Measuring reproducibility of high-throughput experiments. *Ann. Appl. Stat.* **5**, 1752–1779 (2011).
+- Landt2012: Landt, S. G. et al. ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. *Genome Res.* **22**, 1813–1831 (2012).

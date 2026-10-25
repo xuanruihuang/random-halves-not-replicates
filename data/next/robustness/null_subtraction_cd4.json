@@ -1,5 +1,5 @@
 {
- "rules": "Null subtraction as an approximate correction without independent replicates (CD4 donors 1 and 2, resting and\nstimulated): mean random-half cross-half signal of expressed targets minus that of unexpressed targets, compared with\nthe sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of\nguide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json.\nUsage: null_subtraction_cd4.py <v1 data dir> <out.json>",
+ "rules": "Null subtraction as an approximate correction without independent replicates (CD4 donors 1-4, resting and\nstimulated): mean random-half cross-half signal of expressed targets minus that of unexpressed targets, compared with\nthe sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of\nguide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json;\nfor donors 3 and 4, the same quantities from clone_tests_cd4.py (model_eval/results/clone_tests_D3.json, _D4.json).\nUsage: null_subtraction_cd4.py <v1 data dir> <out.json> [<donor>=<clone_tests json> ...]",
  "rows": [
   {
    "donor": "D1",
@@ -44,6 +44,50 @@
    "sgRNA_related": 3.831979673307678,
    "random_over_sgRNA_half": 6.446149956506823,
    "corrected_over_sgRNA_related": 1.0930705125116413
+  },
+  {
+   "donor": "D3",
+   "state": "rest",
+   "random": 15.930671555260156,
+   "sgRNA_half": 2.615001106780259,
+   "null_random": 13.883330077262684,
+   "random_minus_null": 2.047341477997472,
+   "sgRNA_related": 4.714732031713177,
+   "random_over_sgRNA_half": 6.092032433162111,
+   "corrected_over_sgRNA_related": 0.43424344463826003
+  },
+  {
+   "donor": "D3",
+   "state": "stim48",
+   "random": 13.116833089161517,
+   "sgRNA_half": 2.1630568351877337,
+   "null_random": 11.255461378118572,
+   "random_minus_null": 1.8613717110429455,
+   "sgRNA_related": 3.2119920422683275,
+   "random_over_sgRNA_half": 6.064026092972769,
+   "corrected_over_sgRNA_related": 0.5795069497521027
+  },
+  {
+   "donor": "D4",
+   "state": "rest",
+   "random": 7.4385948058274804,
+   "sgRNA_half": 1.7303227213943309,
+   "null_random": 5.60560704100753,
+   "random_minus_null": 1.8329877648199506,
+   "sgRNA_related": 3.1196957961534393,
+   "random_over_sgRNA_half": 4.298963837123575,
+   "corrected_over_sgRNA_related": 0.5875533656454615
+  },
+  {
+   "donor": "D4",
+   "state": "stim48",
+   "random": 6.638978538332783,
+   "sgRNA_half": 1.6830861932807342,
+   "null_random": 4.522319862060378,
+   "random_minus_null": 2.1166586762724044,
+   "sgRNA_related": 2.499268336978401,
+   "random_over_sgRNA_half": 3.944526765674335,
+   "corrected_over_sgRNA_related": 0.8469113319906381
   }
  ]
 }

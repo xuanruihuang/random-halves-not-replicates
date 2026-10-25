@@ -1,0 +1,191 @@
+{
+ "rules": "Confidence intervals for the headline numbers (preprint writing step; A100). Readout predictions are computed once\n(5-fold CV, verify_headline.cv_readout) and held fixed; the bootstrap resamples the units (targets for CD4, conditions\nfor Tahoe, 1,000 draws) and recomputes ratio-of-sums statistics. Split-to-split variation is shown separately.\ncd4   donor-1 per-cell aggregates after the audit fixes (cells_D1_*_v2; code = gp * 4 + r1 * 2 + r2). Designs:\n        random_r1, random_r2, random_xor   three different random halvings of the same cells\n        guide                              gp = 0 vs 1 (independent transductions)\n      Targets present in both states with >= 10 cells on every side of every design, target gene measured; genes with\n      control mean >= 0.1 in both states; inert = control mean < 0.01 in both states; expressed >= 0.5 in both.\n      Per design: inert frac_pos per state (inert baseline), gamma share (template removed), readout share k = 20 and\n      a shuffled control, mean per-target Pearson (rest) and its Spearman-Brown value, and the share of targets that\n      Wang et al. 2026 would call reliable (rho = SB of the per-target Pearson, median over the three random halvings for\n      the random design; rho >= 0.5), for all / inert / expressed targets.\ntahoe fixed-target readout (k = 10, 5-fold) on the plate 6 / 14 arrays of tahoe_plate_recompute.py, beta from the same\n      well vs the other plate, and the across-plate gamma share; bootstrap over conditions.\nUsage: ci_bootstrap.py cd4 <cells_Rest> <cells_Stim> <out_dir> | tahoe <D_arrays.npz> <out_dir>. Exploratory.",
+ "n_targets": 4384,
+ "n_inert": 807,
+ "n_expressed": 745,
+ "n_genes": 7653,
+ "random_r1": {
+  "inert_frac_pos_rest": [
+   0.9975216852540273,
+   0.9938042131350682,
+   1.0
+  ],
+  "inert_frac_pos_stim": [
+   0.9962825278810409,
+   0.9913258983890955,
+   1.0
+  ],
+  "pearson_rest_all": [
+   0.39884503033397284,
+   0.39346731925890605,
+   0.40457546928105426
+  ],
+  "pearson_rest_sb_all": 0.5702490578799125,
+  "pearson_rest_inert": [
+   0.398425626686493,
+   0.3849322368864731,
+   0.4121852623251769
+  ],
+  "pearson_rest_sb_inert": 0.569820259416362,
+  "pearson_rest_expressed": [
+   0.4116933701792294,
+   0.39875994185618346,
+   0.42533115459816956
+  ],
+  "pearson_rest_sb_expressed": 0.5832617463195433,
+  "gamma_share": [
+   0.24940788294549887,
+   0.24575349783400893,
+   0.25312971128287015
+  ],
+  "readout_k20": [
+   0.5193607957475883,
+   0.5085073883038732,
+   0.5304661629770336
+  ],
+  "readout_k20_shuffled": -2.3665517559963448e-05,
+  "gamma_cross_per_target": 3.748339856958145,
+  "beta_cross_per_target": 11.280615173213214
+ },
+ "random_r2": {
+  "inert_frac_pos_rest": [
+   0.9950433705080545,
+   0.990086741016109,
+   0.9987608426270136
+  ],
+  "inert_frac_pos_stim": [
+   0.9950433705080545,
+   0.990086741016109,
+   0.9987608426270136
+  ],
+  "pearson_rest_all": [
+   0.3991932862570256,
+   0.39364432628235907,
+   0.405022693756318
+  ],
+  "pearson_rest_sb_all": 0.5706049195317473,
+  "pearson_rest_inert": [
+   0.3987060303869059,
+   0.3861602107229705,
+   0.4116253142662988
+  ],
+  "pearson_rest_sb_inert": 0.5701069727662745,
+  "pearson_rest_expressed": [
+   0.4107615362628276,
+   0.39703430502602405,
+   0.42429739583926196
+  ],
+  "pearson_rest_sb_expressed": 0.5823259646714694,
+  "gamma_share": [
+   0.25008040098224144,
+   0.24669223214123867,
+   0.25357934802125404
+  ],
+  "readout_k20": [
+   0.5115726791552877,
+   0.5011659397705027,
+   0.521532800677269
+  ],
+  "readout_k20_shuffled": 5.901241758259533e-06,
+  "gamma_cross_per_target": 3.7544062198509773,
+  "beta_cross_per_target": 11.258390485147842
+ },
+ "random_xor": {
+  "inert_frac_pos_rest": [
+   0.9987608426270136,
+   0.9962825278810409,
+   1.0
+  ],
+  "inert_frac_pos_stim": [
+   0.9975216852540273,
+   0.9938042131350682,
+   1.0
+  ],
+  "pearson_rest_all": [
+   0.399731573943253,
+   0.3940587532885457,
+   0.4055701440682087
+  ],
+  "pearson_rest_sb_all": 0.5711546147625283,
+  "pearson_rest_inert": [
+   0.3994028725197921,
+   0.38572307434183867,
+   0.41308797868397457
+  ],
+  "pearson_rest_sb_inert": 0.5708189976780875,
+  "pearson_rest_expressed": [
+   0.41111299749979113,
+   0.39683452747445636,
+   0.42443780874152
+  ],
+  "pearson_rest_sb_expressed": 0.5826790600443774,
+  "gamma_share": [
+   0.24955950289116902,
+   0.2461446678226129,
+   0.25310928932284277
+  ],
+  "readout_k20": [
+   0.5124716619818768,
+   0.5018165229288509,
+   0.5236984221670851
+  ],
+  "readout_k20_shuffled": -0.0001999968320864441,
+  "gamma_cross_per_target": 3.750612939573617,
+  "beta_cross_per_target": 11.278319624093294
+ },
+ "guide": {
+  "inert_frac_pos_rest": [
+   0.5464684014869888,
+   0.5130111524163569,
+   0.5811648079306072
+  ],
+  "inert_frac_pos_stim": [
+   0.5427509293680297,
+   0.5092936802973977,
+   0.5762081784386617
+  ],
+  "pearson_rest_all": [
+   0.02315662876441456,
+   0.018483246612987374,
+   0.02763249978035046
+  ],
+  "pearson_rest_sb_all": 0.0452650710817932,
+  "pearson_rest_inert": [
+   0.022471764701935126,
+   0.01145115282863968,
+   0.03316214405313078
+  ],
+  "pearson_rest_sb_inert": 0.04395576577801337,
+  "pearson_rest_expressed": [
+   0.04166008415014983,
+   0.029931837152649503,
+   0.05340266184181812
+  ],
+  "pearson_rest_sb_expressed": 0.07998786702888531,
+  "gamma_share": [
+   0.25067334855601864,
+   0.19105049394429485,
+   0.3092156296270777
+  ],
+  "readout_k20": [
+   0.0010058143870242504,
+   7.120000264537227e-06,
+   0.002020493945414469
+  ],
+  "readout_k20_shuffled": -0.0005165238953353678,
+  "gamma_cross_per_target": 0.27592573410425303,
+  "beta_cross_per_target": 0.8248124803636931
+ },
+ "wang_reliable_share_rest": {
+  "random": {
+   "all": 0.6010492700729927,
+   "inert": 0.6022304832713755,
+   "expressed": 0.6134228187919463
+  },
+  "guide": {
+   "all": 0.027144160583941607,
+   "inert": 0.023543990086741014,
+   "expressed": 0.03355704697986577
+  }
+ }
+}

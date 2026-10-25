@@ -1,0 +1,22 @@
+{
+ "model": "STATE",
+ "baseline": "predicted non-targeting cells (n=6000)",
+ "n_pred_guides": 554,
+ "scores": {
+  "inert": {
+   "n": 280,
+   "pearson_A": 0.1908581296293027,
+   "pearson_B": 0.012484736688714486,
+   "leak": 0.17837339294058827,
+   "leak_se": 0.012057144340504072
+  },
+  "strong": {
+   "n": 274,
+   "pearson_A": 0.20465149498510934,
+   "pearson_B": 0.02965991442189594,
+   "leak": 0.1749915805632134,
+   "leak_se": 0.01152831050753131
+  }
+ },
+ "rules": "Model pilot: score STATE's predictions (adata_pred.h5ad from `state tx predict --predict-only`) like the other models.\nA test guide's predicted effect is the mean predicted expression over its cells minus the mean over the predicted\nnon-targeting cells of the stimulated state when the prediction file has them; otherwise minus the observed stimulated\ncontrol mean (recorded in the output as baseline). Usage: pilot_state_score.py <data_dir> <adata_pred> <out_json>"
+}

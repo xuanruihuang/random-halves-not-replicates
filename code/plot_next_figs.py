@@ -57,16 +57,19 @@ def fig2(v1, res, out):
     P.title(ax, "CD4 T cells, unexpressed targets"); ax.set_ylim(0, ax.get_ylim()[1] * 1.3); ax.legend(fontsize=5.6, loc="upper right", handlelength=1.0)
     ax = P.axmm(fig, W, H, 102, 14, 78, 33); P.letter(fig, W, H, 92, 3, "b")
     ds = J(v1, "donor_split.json")["C_null_baseline_donor_split"]["inert"]
-    groups = [("D1\nrest", D1, "rest"), ("D1\nstim", D1, "stim"), ("D2\nrest", D2, "rest"), ("D2\nstim", D2, "stim")]
-    x = np.arange(4); w = 0.36
-    for j, (k, col) in enumerate((("random", RED), ("guide", BLUE))):
+    # four donors with one target rule (ci_bootstrap.py: >= 10 cells on every side of every halving, both states)
+    ci = {"D1": J(v1, "ci_cd4.json"), "D2": J(v1, "ci_cd4_D2.json"), "D3": J(res, "ci_D3.json"), "D4": J(res, "ci_D4.json")}
+    groups = [("%s\n%s" % (d, s), ci[d], s) for d in ("D1", "D2", "D3", "D4") for s in ("rest", "stim")]
+    x = np.arange(len(groups)); w = 0.36
+    for j, (k, col) in enumerate((("random_r1", RED), ("guide", BLUE))):
         for xi, (_, dd, s) in zip(x, groups):
-            ind = dd["cross_%s_%s" % (k, s)][dd["inert"]] > 0
-            ax.bar(xi + (j - 0.5) * w, 100 * ind.mean(), w, color=col); P.err(ax, xi + (j - 0.5) * w, ind.mean(), *P.share_ci(ind.mean(), ind.size), scale=100)
-    for xi, s in ((4.15, "rest"), (4.85, "stim")):
+            pt, lo, hi = dd[k]["inert_frac_pos_%s" % s]
+            ax.bar(xi + (j - 0.5) * w, 100 * pt, w, color=col); P.err(ax, xi + (j - 0.5) * w, pt, lo, hi, scale=100)
+    xd = (len(groups) + 0.3, len(groups) + 1.3)
+    for xi, s in zip(xd, ("rest", "stim")):
         p = ds["%s_frac_pos" % s]; ax.bar(xi, 100 * p, w, color=BLUE); P.err(ax, xi, p, *P.share_ci(p, 1479), scale=100)
     ax.axhline(50, color="k", lw=0.6, ls="--"); ax.set_ylim(0, 118); ax.set_yticks([0, 25, 50, 75, 100])
-    ax.set_xticks(list(x) + [4.15, 4.85]); ax.set_xticklabels([g for g, _, _ in groups] + ["donors\nrest", "donors\nstim"], fontsize=5.6)
+    ax.set_xticks(list(x) + list(xd)); ax.set_xticklabels([g for g, _, _ in groups] + ["donors\nrest", "donors\nstim"], fontsize=5.0)
     ax.set_ylabel("Targets with positive\ncross-half signal (%)")
     ax.legend(handles=P.patches(((RED, "random halves"), (BLUE, "guide or donor halves"))), fontsize=5.6, loc="upper center", ncol=2, handlelength=1, columnspacing=1)
     P.title(ax, "Unexpressed targets")
@@ -160,15 +163,15 @@ def fig3(v1, res, out):
         ax.set_title("%s (r = %s)" % (nm[0].upper() + nm[1:], ("%.2f" % r).replace("-", "−")), loc="left", fontsize=6.5, pad=3)
     # d: TRBC halves (CD4: the strong system)
     ax = P.axmm(fig, W, H, 116, 70, 62, 30); P.letter(fig, W, H, 106, 58, "d")
-    labs = [("D1_Rest", "D1\nrest"), ("D1_Stim48", "D1\nstim"), ("D2_Rest", "D2\nrest"), ("D2_Stim48", "D2\nstim")]
-    x = np.arange(4); w = 0.36
+    labs = [("D%d_%s" % (d, k), "D%d\n%s" % (d, s_)) for d in (1, 2, 3, 4) for k, s_ in (("Rest", "rest"), ("Stim48", "stim"))]
+    x = np.arange(len(labs)); w = 0.36
     for xi, (k, lab) in zip(x, labs):
         g = J(res, "trbc_split", k + ".json")["groups"]["inert"]; n = g["n_targets"]
         for j, (key, col) in enumerate((("share_pos_random_r1", RED), ("share_pos_trbc", BLUE))):
             p = g[key]; ax.bar(xi + (j - 0.5) * w, 100 * p, w, color=col); P.err(ax, xi + (j - 0.5) * w, p, *P.share_ci(p, n), scale=100)
-        ax.text(xi, 106, "%d%%" % round(100 * g["mean_trbc"] / g["mean_random_r1"]), ha="center", fontsize=5.6)
+        ax.text(xi, 106, "%d%%" % round(100 * g["mean_trbc"] / g["mean_random_r1"]), ha="center", fontsize=5.0)
     ax.axhline(50, color="k", lw=0.6, ls="--"); ax.set_ylim(0, 118); ax.set_yticks([0, 25, 50, 75, 100])
-    ax.set_xticks(x); ax.set_xticklabels([l for _, l in labs], fontsize=5.6); ax.set_ylabel("Targets with positive\ncross-half signal (%)")
+    ax.set_xticks(x); ax.set_xticklabels([l for _, l in labs], fontsize=5.0); ax.set_ylabel("Targets with positive\ncross-half signal (%)")
     P.title(ax, "CD4, unexpressed targets")
     fig.legend(handles=P.patches(((RED, "random halves"), (BLUE, "TRBC halves (no shared clone)"))), fontsize=5.6, loc="upper left",
                bbox_to_anchor=(116 / W, 1 - 110 / H), ncol=2, handlelength=1, columnspacing=1, frameon=False)
@@ -181,7 +184,7 @@ def fig3(v1, res, out):
     ax.scatter(r, sh, s=9, facecolors="none", edgecolors=RED, lw=0.6, zorder=3, label="clone labels shuffled")
     ax.scatter(r, c, s=8, color=BLUE, lw=0, zorder=4, label="true clones")
     ax.plot([-1, 18], [-1, 18], color="k", lw=0.5, ls="--"); ax.axhline(0, color="k", lw=0.4)
-    ax.set_xlim(0, 17); ax.set_ylim(-1, 17); ax.set_xlabel("random halves"); ax.set_ylabel("clone halves")
+    ax.set_xlim(0, 17); ax.set_ylim(-1, 17); ax.set_xticks([0, 4, 8, 12, 16]); ax.set_yticks([0, 4, 8, 12, 16]); ax.set_xlabel("random halves"); ax.set_ylabel("clone halves")
     ax.legend(fontsize=5.6, loc="upper left", handletextpad=0.3, borderaxespad=0.2)
     P.title(ax, "Organoids, cross-half signal")
     P.save(fig, out, "fig3_next")
@@ -268,19 +271,20 @@ def fig5(v1, res, out):
     W, H = 183, 126
     fig = plt.figure(figsize=(W * MM, H * MM))
     # a: composition of the random-half signal (the TRBC-halves check is reported in the text, on other cells and targets)
-    ax = P.axmm(fig, W, H, 14, 14, 34, 42); P.letter(fig, W, H, 2, 3, "a")
-    c1, c2 = J(v1, "clone_D1.json"), J(v1, "clone_D2.json"); gd = J(v1, "guide_donor.json")
+    ax = P.axmm(fig, W, H, 13, 14, 40, 42); P.letter(fig, W, H, 2, 3, "a")
+    cs = {"D1": J(v1, "clone_D1.json"), "D2": J(v1, "clone_D2.json"), "D3": J(res, "clone_tests_D3.json"), "D4": J(res, "clone_tests_D4.json")}
+    gd = J(v1, "guide_donor.json")
     bars = []
-    for lab, dd, stt, rk, tk in (("D1\nrest", c1, "rest", "rest", "D1_Rest"), ("D1\nstim", c1, "stim48", "stim", "D1_Stim48"), ("D2\nrest", c2, "rest", "rest", "D2_Rest"), ("D2\nstim", c2, "stim48", "stim", "D2_Stim48")):
+    for lab, dd, stt, rk in [("D%s\n%s" % (d[1], rk), cs[d], stt, rk) for d in ("D1", "D2", "D3", "D4") for stt, rk in (("rest", "rest"), ("stim48", "stim"))]:
         R = dd[stt]["depth"]["random_half"]["expressed"]["cross_per_target"]; Gg = dd[stt]["depth"]["guide_half"]["expressed"]["cross_per_target"]
         rep = Gg / R; gsp = gd["guide_specific_over_diff_guide_" + rk] * rep
         bars.append((lab, 1 - rep - gsp, gsp, rep))
-    x = np.arange(len(bars)); w = 0.6
+    x = np.arange(len(bars)); w = 0.7
     for xi, (lab, tr, gsp, rep) in enumerate(bars):
         ax.bar(xi, 100 * rep, w, color=BLUE); ax.bar(xi, 100 * gsp, w, bottom=100 * rep, color="#e6b0aa")
         ax.bar(xi, 100 * tr, w, bottom=100 * (rep + gsp), color=RED)
-        ax.text(xi, 100 * (rep + gsp) + 100 * tr / 2, "%d%%" % round(100 * tr), ha="center", va="center", fontsize=5.6, color="white")
-    ax.set_xticks(x); ax.set_xticklabels([b[0] for b in bars], fontsize=5.6)
+        ax.text(xi, 100 * (rep + gsp) + 100 * tr / 2, "%d" % round(100 * tr), ha="center", va="center", fontsize=5.0, color="white")
+    ax.set_xticks(x); ax.set_xticklabels([b[0] for b in bars], fontsize=5.0)
     ax.set_ylim(0, 100); ax.set_yticks([0, 25, 50, 75, 100]); ax.set_ylabel("Share of random-half signal (%)")
     P.title(ax, "CD4, expressed targets")
     fig.legend(handles=P.patches(((RED, "within one transduction"), ("#e6b0aa", "specific to the guide"), (BLUE, "reproduced by the other guide")))
@@ -310,19 +314,40 @@ def fig5(v1, res, out):
     fig.legend(handles=[Line2D([], [], marker="o", ls="none", color=RED, ms=3, label="random halves"),
                         Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="guide halves")], fontsize=5.6, loc="upper left",
                bbox_to_anchor=(120 / W, 1 - 66 / H), ncol=2, frameon=False)
-    # c: reliability labels (v1 Fig. 4b)
-    ax = P.axmm(fig, W, H, 14, 92, 164, 22); P.letter(fig, W, H, 2, 84, "c")
-    w = 0.36; cats = ("all", "inert", "expressed")
-    for g_, (fname, nn, x0) in enumerate((("ci_cd4.json", {"all": 6615, "inert": 1235, "expressed": 1097}, 0.0),
-                                           ("ci_cd4_D2.json", {"all": 5003, "inert": 869, "expressed": 859}, 3.6))):
-        ci = J(v1, fname)["wang_reliable_share_rest"]; xg = x0 + np.arange(3)
-        for j, (k, col, nm) in enumerate((("random", RED, "random halves"), ("guide", BLUE, "guide halves"))):
+    # c: reliability labels; d: cell-eval Pearson ceiling of unexpressed targets. Donors ordered by clone concentration
+    # (TRBC readout of Supplementary Table S2b: donor 4 < 1 < 2 < 3)
+    order = (("D4", res, "ci_D4.json", "celleval/celleval_d4.json"), ("D1", v1, "ci_cd4.json", None),
+             ("D2", v1, "ci_cd4_D2.json", "celleval/celleval_d2.json"), ("D3", res, "ci_D3.json", "celleval/celleval_d3.json"))
+    ax = P.axmm(fig, W, H, 14, 92, 108, 22); P.letter(fig, W, H, 2, 84, "c")
+    w = 0.36; cats = ("inert", "expressed")
+    for g_, (dn, dr, fname, _) in enumerate(order):
+        cj = J(dr, fname); x0 = 2.8 * g_
+        nn = {"inert": cj["n_inert"], "expressed": cj["n_expressed"]}
+        ci = cj["wang_reliable_share_rest"]; xg = x0 + 1.2 * np.arange(2)
+        for j, (k, col) in enumerate((("random", RED), ("guide", BLUE))):
             ax.bar(xg + (j - 0.5) * w, [100 * ci[k][s_] for s_ in cats], w, color=col)
             for xi, s_ in zip(xg, cats):
                 P.err(ax, xi + (j - 0.5) * w, ci[k][s_], *P.share_ci(ci[k][s_], nn[s_]), scale=100)
-        ax.text(x0 + 1, -15, "donor %d" % (g_ + 1), ha="center", va="top", fontsize=6.5)
-    ax.set_xticks([0, 1, 2, 3.6, 4.6, 5.6]); ax.set_xticklabels(["all", "unexpressed", "expressed"] * 2); ax.set_ylabel("Labelled reliable (%)")
-    ax.set_ylim(0, 62); P.title(ax, "Reliability labels, resting CD4 T cells")
+        ax.text(x0 + 0.6, -17, "donor %s" % dn[1], ha="center", va="top", fontsize=6.5)
+    ax.set_xticks([2.8 * g_ + 1.2 * i for g_ in range(4) for i in range(2)]); ax.set_xticklabels(["unexpressed", "expressed"] * 4, fontsize=5.6)
+    ax.set_ylabel("Labelled reliable (%)")
+    ax.set_ylim(0, 72); ax.set_yticks([0, 20, 40, 60]); P.title(ax, "Reliability labels, resting CD4 T cells")
+    ax = P.axmm(fig, W, H, 140, 92, 38, 22); P.letter(fig, W, H, 128, 84, "d")
+    ce1 = J(v1, "celleval.json")["shared"]
+    for i, (dn, _, _, cf) in enumerate(order):
+        c = ce1 if cf is None else J(res, cf)["shared"]
+        r_ = np.nanmean([c["random_%d" % s_]["inert"]["ceiling"].get("pearson_delta") or np.nan for s_ in (0, 1, 2)])
+        gv = [x_ for x_ in (c[k]["inert"]["ceiling"].get("pearson_delta") for k in ("guide_0real_1pred_0", "guide_1real_0pred_0")) if x_ is not None and not np.isnan(x_)]
+        ax.plot([i, i], [np.mean(gv) if gv else 0, r_], color="#d5dbdb", lw=1.6, zorder=1)
+        ax.scatter([i], [r_], s=12, color=RED, zorder=3, lw=0)
+        if gv:
+            ax.scatter([i], [np.mean(gv)], s=12, color=BLUE, zorder=3, lw=0)
+        else:
+            ax.scatter([i], [0], s=12, facecolor="white", edgecolor=BLUE, zorder=3, lw=0.8)
+    ax.set_xlim(-0.5, 3.5); ax.set_xticks(range(4)); ax.set_xticklabels(["D%s" % o[0][1] for o in order], fontsize=5.6)
+    ax.set_ylim(-0.02, 0.52); ax.set_yticks([0, 0.25, 0.5]); ax.set_yticklabels(["0", "0.25", "0.5"]); ax.set_ylabel("Pearson Δ ceiling")
+    ax.set_xlabel("donors, fewer to more\nconcentrated clones", fontsize=5.6)
+    P.title(ax, "cell-eval, unexpressed")
     P.save(fig, out, "fig5_next")
 
 
@@ -333,29 +358,30 @@ def regroup(pg, groups):
 
 
 def fig7(res, notes, out):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     W, H = 183, 74
     fig = plt.figure(figsize=(W * MM, H * MM))
-    # a: donor-1 model scores, unexpressed targets, from the pilot summary table
-    rows = []
-    for line in open(notes, encoding="utf-8"):
-        c = [x.strip() for x in line.strip().strip("|").split("|")]
-        if len(c) > 3 and re.match(r"^-?\d", c[1]):
-            rows.append((c[0], float(c[1]), float(c[2])))
-    keep = [("Context mean", "baseline (context mean)"), ("Copy resting effect", "copy resting effect"), ("Linear (ridge)", "linear (ridge)"),
-            ("Arc perturb_mean", "Arc perturb_mean"), ("Arc pseudobulk", "Arc pseudobulk"), ("STATE Transition (HVG)", "STATE"),
-            ("State (SE-600M + ST)", "State (SE-600M + STATE)"), ("PIE (expression shift)", "PIE"), ("Stack (zero-shot)", "Stack")]
-    rd = {r[0]: r for r in rows}
+    # a: model scores in the four donors, unexpressed targets (models_four_donors.py); mean over donors, donors as small points
+    from models_four_donors import collect
+    sc = collect(res)
+    keep = [("mean", "baseline (context mean)"), ("copy", "copy resting effect"), ("linear", "linear (ridge)"),
+            ("arc_perturb_mean", "Arc perturb_mean"), ("arc_pseudobulk", "Arc pseudobulk"), ("scgen", "scGen"),
+            ("state_st", "STATE"), ("state_se", "State (SE-600M + STATE)"), ("pie", "PIE")]
     ax = P.axmm(fig, W, H, 36, 12, 40, 52); P.letter(fig, W, H, 2, 3, "a")
     for i, (k, lab) in enumerate(keep):
-        y = len(keep) - 1 - i; a, b = rd[k][1], rd[k][2]
-        ax.plot([b, a], [y, y], color="#d5dbdb", lw=1.6, zorder=1)
-        ax.scatter([a], [y], s=12, color=RED, zorder=3, lw=0); ax.scatter([b], [y], s=12, color=BLUE, zorder=3, lw=0)
-    base = rd["Context mean"][1]; ax.axvline(base, color=GREY, lw=0.6, ls=":")
+        y = len(keep) - 1 - i; v = [sc[k][d]["inert"] for d in sorted(sc[k])]
+        A = [x[0] for x in v]; B = [x[1] for x in v]
+        ax.plot([np.mean(B), np.mean(A)], [y, y], color="#d5dbdb", lw=1.6, zorder=1)
+        ax.scatter(A, [y + 0.18] * len(A), s=3, color=RED, alpha=0.6, zorder=2, lw=0)
+        ax.scatter(B, [y - 0.18] * len(B), s=3, color=BLUE, alpha=0.6, zorder=2, lw=0)
+        ax.scatter([np.mean(A)], [y], s=12, color=RED, zorder=3, lw=0); ax.scatter([np.mean(B)], [y], s=12, color=BLUE, zorder=3, lw=0)
+    base = np.mean([sc["mean"][d]["inert"][0] for d in sc["mean"]]); ax.axvline(base, color=GREY, lw=0.6, ls=":")
     ax.set_yticks(range(len(keep))); ax.set_yticklabels([l for _, l in keep][::-1], fontsize=5.4)
-    ax.set_xlim(-0.03, 0.5); ax.set_xlabel("Pearson r, predicted vs answer")
+    ax.set_xlim(-0.03, 0.6); ax.set_xlabel("Pearson r, predicted vs answer")
     ax.legend(handles=[Line2D([], [], marker="o", ls="none", color=RED, ms=3, label="answer: same guide"),
-                       Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="answer: other guide")], fontsize=5.0, loc="lower right")
-    P.title(ax, "Donor 1, unexpressed targets")
+                       Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="answer: other guide")], fontsize=5.0, loc="upper right",
+              borderaxespad=0.2, handletextpad=0.2)
+    P.title(ax, "Four donors, unexpressed targets")
     # b: clone gain against donor clonality
     cl = J(res, "clonality.json"); det = {d: J(res, "detail_%s.json" % d) for d in ("D1", "D2", "D3", "D4")}
     vc = {d: (cl[d]["rest"]["vc"] + cl[d]["stim48"]["vc"]) / 2 for d in det}
@@ -601,7 +627,7 @@ def fig1_next(out):
 
 def main():
     v1, res, out = sys.argv[1:4]; os.makedirs(out, exist_ok=True)
-    notes = os.path.join(res, "model_pilot_summary_table.md")   # model_eval/pilot_summary.py on <results>/pilot
+    notes = os.path.join(os.path.dirname(res.rstrip("/\\")), "..", "notes", "model_pilot_summary_table.md")
     fig1_next(out); fig2(v1, res, out); fig3(v1, res, out); fig4(v1, res, out); fig5(v1, res, out); fig6(v1, res, out); fig7(res, os.path.normpath(notes), out)
 
 

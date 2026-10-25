@@ -296,6 +296,28 @@ What has not been rerun, and what the pipeline cannot recreate exactly:
   and Replogle screens lacked, respectively, the `PILOT_DONOR` option (default donor 1) and the reader for
   column-compressed matrices, which those runs do not use.
 
+## Third version of the preprint: four CD4 donors
+
+The third version repeats the CD4 analyses in all four donors and adds scGen and the remaining published models in donors 2–4.
+
+| File | What it gives |
+|---|---|
+| `code/table_per_donor_cd4.py` | Supplementary Table S2a (clone tests in each donor) from `data/next/clone_tests_D*.json`, `trbc_split/`, `trbc_state_keff_D34.json`, `ci_D3.json`, `ci_D4.json` and the first-version files in `data/` |
+| `code/table_s4c_celleval.py` | Supplementary Table S4c (cell-eval ceilings in each donor) from `data/next/celleval/` |
+| `code/models_four_donors.py` | Supplementary Table S6a and Fig. 7a (transfer models in four donors) from `data/next/models4/` |
+| `code/null_subtraction_cd4.py` | Null subtraction in four donors (`data/next/robustness/null_subtraction_cd4.json`) |
+| `code/model_eval/pilot_scgen.py` | scGen (2.1.1 from GitHub, scvi-tools 0.20.3) in the transfer evaluation |
+| `code/model_eval/runs/` | Run scripts for Arc pseudobulk, PIE and the full State pipeline in donors 2–4 |
+| `code/run_celleval_d234.sh` | cell-eval ceilings in donors 2–4 (`code/run_celleval_ceiling.py`) |
+| `notes/multicontext_transduction_survey.md` | Supplementary Table S7: whether the contexts of public multi-context screens come from one transduction, with the quoted methods sentences |
+
+```
+python code/plot_next_figs.py data data/next figures/next
+python code/table_per_donor_cd4.py data data/next table_S2a.md
+python code/table_s4c_celleval.py data data/next table_S4c.md
+python code/models_four_donors.py data/next table_S6a.md
+```
+
 ## License
 
 The code is released under the MIT License (see `LICENSE`). If you use the code or the result files in `data/`, please cite the preprint.

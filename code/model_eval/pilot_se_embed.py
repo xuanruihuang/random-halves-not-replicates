@@ -10,7 +10,7 @@ import numpy as np, pandas as pd, anndata as ad
 from scipy.sparse import csr_matrix
 from pilot_common import STATES, build_adata
 
-STATE_BIN = os.environ.get("STATE_BIN", "state")   # arc-state command line (STATE_BIN in config.env)
+STATE_BIN = os.environ.get("STATE_BIN", "state")
 
 
 def main():

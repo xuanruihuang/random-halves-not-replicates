@@ -1,6 +1,6 @@
 # Supplementary Information
 
-Contents: Supplementary Note 1; Supplementary Tables S1–S7; Supplementary Figures S1–S3.
+Contents: Supplementary Note 1 (with Table N1); Supplementary Tables S1–S8; Supplementary Figures S1–S3.
 
 ## Supplementary Note 1 | Statistical model of clone strength: propositions and checks
 
@@ -23,7 +23,7 @@ The formal tests reported in the main text are summarized in Supplementary Table
 
 | Test | Statistic | Null distribution | Result |
 |---|---|---|---|
-| CD4, constant-region halves | random minus constant-region halves, per target | paired sign test; Wilcoxon signed-rank test | p < 10^−150^ in each donor and state |
+| CD4, constant-region halves | random minus constant-region halves, per target | paired sign test; Wilcoxon signed-rank test | sign test p < 10^−180^, Wilcoxon p < 10^−120^ in each donor and state |
 | Organoids, clone halves | random minus clone halves, per perturbation | sign test; clone labels shuffled within each perturbation (200 times) | 32 of 32, p = 2 × 10^−10^ (1,000 splits per perturbation); shuffled clone halves 4.98, random halves 4.97, true clone halves 3.43; permutation p = 0.005 |
 | Relation: slope equals ICC | slope of clone strength on Σ p~k~^2^ | bootstrap over perturbations (2,000) | slope 0.0096 (0.0085–0.0109); median ICC 0.0104 (0.0034–0.0171); interval of their ratio 0.57–2.70 includes 1 |
 | Relation: out-of-sample prediction | ICC of one half of the perturbations predicts the clone strength of the other | random splits of perturbations (500) | median Spearman 0.80, Pearson 0.83; median measured/predicted 0.94 (quartiles 0.71–1.39) |
@@ -41,23 +41,57 @@ The formal tests reported in the main text are summarized in Supplementary Table
 | Donor 2, stimulated | 622 | 40 | 98.7% (97.7–99.5) | 49.8% (43.4–56.6) | 21.3 / 0.01 | 76.0 (1.00) | 0.97 |
 
 <!-- TABLE S1b -->
-**Supplementary Table S1 (continued) | b, Cell-line screens.** Raw single cells of the K562 essential-gene, K562 genome-wide (part 1) and RPE1 screens of Replogle et al., the Jurkat and HepG2 screens of Nadig et al. and the H1 hESC training data of the 2025 Virtual Cell Challenge; one pseudo-perturbation per non-targeting construct. The last two columns compare the mean random-half signal of non-targeting constructs with that of targeting perturbations of the same screen (CD4: resting cells, TCR genes excluded).
+**Supplementary Table S1 (continued) | b, Cell-line screens.** Raw single cells of the K562 essential-gene, K562 genome-wide (part 1) and RPE1 screens of Replogle et al., the Jurkat and HepG2 screens of Nadig et al. and the H1 hESC training data of the 2025 Virtual Cell Challenge; one pseudo-perturbation per non-targeting construct.
 
-| Screen | Constructs | Cells per half (median) | Positive, random halves | Positive, different constructs | Mean signal, non-targeting / targeting | Ratio |
-|---|---|---|---|---|---|---|
-| CD4 donor 1, resting | 739 | – | see a | see a | 13.9 / 10.5 | 1.31 |
-| CD4 donor 2, resting | 578 | – | see a | see a | 20.2 / 17.4 | 1.16 |
-| K562 essential (day 6) | 97 | 52 | 74.2% (64.9–82.5) | 49.1% (33.3–72.9) | 0.36 / 15.7 | 0.023 |
-| K562 genome-wide (day 8, part 1) | 507 | 68 | 71.4% (67.6–75.0) | 49.9% (42.7–56.9) | 0.28 / 4.4 | 0.064 |
-| RPE1 essential | 113 | 49 | 76.1% (68.1–84.1) | 50.9% (37.5–69.6) | 1.06 / 42.1 | 0.025 |
-| Jurkat essential | 128 | 44 | 73.4% (65.6–81.2) | 51.4% (34.4–64.1) | 1.39 / 20.0 | 0.070 |
-| HepG2 essential | 112 | 19 | 59.8% (50.0–68.8) | 50.0% (33.9–71.4) | 1.25 / 29.6 | 0.042 |
-| H1 hESC, VCC 2025 training data | 31 | 574 | 71.0% (54.8–87.1) | 49.2% (13.3–80.0) | 0.09 / 16.7 | 0.006 |
+| Screen | Constructs | Cells per half (median) | Positive, random halves | Positive, different constructs |
+|---|---|---|---|---|
+| CD4 donor 1, resting | 739 | – | see a | see a |
+| CD4 donor 2, resting | 578 | – | see a | see a |
+| K562 essential (day 6) | 97 | 52 | 74.2% (64.9–82.5) | 49.1% (33.3–72.9) |
+| K562 genome-wide (day 8, part 1) | 507 | 68 | 71.4% (67.6–75.0) | 49.9% (42.7–56.9) |
+| RPE1 essential | 113 | 49 | 76.1% (68.1–84.1) | 50.9% (37.5–69.6) |
+| Jurkat essential | 128 | 44 | 73.4% (65.6–81.2) | 51.4% (34.4–64.1) |
+| HepG2 essential | 112 | 19 | 59.8% (50.0–68.8) | 50.0% (33.9–71.4) |
+| H1 hESC, VCC 2025 training data | 31 | 574 | 71.0% (54.8–87.1) | 49.2% (13.3–80.0) |
 
-## Supplementary Table S2 | Two clone readouts in the CD4 screen
+## Supplementary Table S2 | Clone tests and clone readouts in each CD4 donor
 
-<!-- TABLE S2 -->
-**Supplementary Table S2 | Two clone readouts in the CD4 screen.** TRBC readout: the variance of each sgRNA's mean TRBC1 share beyond its sampling variance, divided by the per-cell variance of the share and averaged over sgRNAs. Expression readout: the clone strength of non-targeting sgRNAs (random-half minus different-sgRNA cross-half signal, divided by the per-cell variance), with effects referenced to the null cells or to all assigned cells of the same sample, and their geometric mean. Both readouts are expected to equal their own ICC divided by the same effective number of clones, so their ratio should not depend on the donor. Donors are ordered by the TRBC readout.
+<!-- TABLE S2a -->
+**Supplementary Table S2a | Clone tests in each CD4 donor.** Each column is one donor and state; –, computed only for resting cells or once per donor. TRBC clone marker: var(z), the variance over perturbations of the z-scored TRBC1 share (1 under random assignment of cells), over all perturbations with at least 30 cells with TRBC counts (Fig. 3b shows the perturbations of the main analysis, for which it is 36 in resting cells of donor 1); Pearson r of the TRBC1 deviation between the random halves and between the two sgRNAs of a perturbation (Fig. 3c), and between its resting and stimulated cells (all perturbations with at least 30 cells with TRBC counts in both states; Fig. 6b); the upper bound on the effective number of clones (Methods). Unexpressed targets: share with a positive cross-half signal under random and sgRNA halves (targets with at least 10 cells on each side of every halving in both states; Fig. 2b). Constant-region halves: the test of Fig. 3d, with random halves of the same classified cells as the comparison. Expressed targets: the three parts of the random-half signal (Fig. 5a). Reliability labels under the split-half rule, resting cells (Fig. 5c).
+
+| Quantity | Donor 1, rest | Donor 1, stim | Donor 2, rest | Donor 2, stim | Donor 3, rest | Donor 3, stim | Donor 4, rest | Donor 4, stim |
+|---|---|---|---|---|---|---|---|---|
+| **TRBC clone marker** | | | | | | | | |
+| var(z) of the TRBC1 share (1 if no clones) | 34 | 28 | 81 | 78 | 81 | 77 | 17 | 19 |
+| r of the TRBC1 deviation, random halves | 0.93 | 0.92 | 0.96 | 0.96 | 0.97 | 0.97 | 0.86 | 0.87 |
+| r of the TRBC1 deviation, sgRNA halves | 0.00 | −0.01 | 0.02 | 0.02 | −0.01 | −0.02 | 0.00 | −0.01 |
+| r of the TRBC1 deviation, resting vs stimulated | 0.89 | – | 0.94 | – | 0.96 | – | 0.88 | – |
+| Upper bound on K~eff~ (median n/z^2^) | 6.5 | 6.8 | 3.9 | 4.0 | 3.4 | 3.7 | 12.4 | 11.6 |
+| **Unexpressed targets, positive cross-half signal (%)** | | | | | | | | |
+| Random halves | 99 | 97 | 99 | 99 | 100 | 100 | 96 | 97 |
+| sgRNA halves | 48 | 54 | 53 | 50 | 55 | 54 | 50 | 50 |
+| Targets (n) | 1,235 | 1,235 | 869 | 869 | 807 | 807 | 1,459 | 1,459 |
+| **Constant-region halves, unexpressed targets** | | | | | | | | |
+| Positive, random halves (%) | 98 | 95 | 99 | 98 | 99 | 100 | 94 | 96 |
+| Positive, constant-region halves (%) | 56 | 54 | 61 | 58 | 57 | 61 | 58 | 57 |
+| Cross-half signal kept (%) | 13 | 8 | 14 | 16 | 18 | 18 | 18 | 14 |
+| Targets higher under random halves (%) | 95 | 92 | 96 | 94 | 98 | 97 | 89 | 91 |
+| Targets (n) | 1,581 | 1,502 | 968 | 981 | 835 | 768 | 1,889 | 1,673 |
+| Expressed targets: signal kept (%) | 31 | 31 | 28 | 29 | 26 | 32 | 38 | 44 |
+| **Expressed targets, random-half signal (%)** | | | | | | | | |
+| Reproduced by the other sgRNA | 19 | 16 | 10 | 16 | 16 | 16 | 23 | 25 |
+| Specific to the sgRNA | 15 | 8 | 8 | 8 | 13 | 8 | 19 | 12 |
+| Only within one transduction | 66 | 77 | 81 | 77 | 70 | 76 | 58 | 62 |
+| Targets (n) | 787 | 847 | 515 | 536 | 542 | 539 | 1,066 | 1,237 |
+| **Labelled reliable, resting cells (%)** | | | | | | | | |
+| Unexpressed, random halves | 18 | – | 42 | – | 60 | – | 8.0 | – |
+| Unexpressed, sgRNA halves | 0.6 | – | 0.9 | – | 2.4 | – | 0.6 | – |
+| Expressed, random halves | 24 | – | 52 | – | 61 | – | 13 | – |
+| Expressed, sgRNA halves | 2.2 | – | 2.3 | – | 3.4 | – | 2.4 | – |
+| Targets, unexpressed / expressed (n) | 1,235 / 1,097 | – | 869 / 859 | – | 807 / 745 | – | 1,459 / 1,421 | – |
+
+<!-- TABLE S2b -->
+**Supplementary Table S2b | Two clone readouts in the CD4 screen.** TRBC readout: the variance of each sgRNA's mean TRBC1 share beyond its sampling variance, divided by the per-cell variance of the share and averaged over sgRNAs. Expression readout: the clone strength of non-targeting sgRNAs (random-half minus different-sgRNA cross-half signal, divided by the per-cell variance), with effects referenced to the null cells or to all assigned cells of the same sample, and their geometric mean. Both readouts are expected to equal their own ICC divided by the same effective number of clones, so their ratio should not depend on the donor. Donors are ordered by the TRBC readout.
 
 | Donor, state | TRBC readout | Clone strength, null reference | Clone strength, all-cell reference | Clone strength, geometric mean | Ratio | Null sgRNAs |
 |---|---|---|---|---|---|---|
@@ -150,6 +184,37 @@ The TRBC readout differs 3.4-fold and the expression readout 2.7-fold between do
 | Discrimination (L2)* | 0.76–0.77 | 0.54 | 0.74–0.75 | 0.51–0.54 | 0.78 | 0.54–0.56 |
 | Discrimination (cosine)* | 0.95 | 0.53 | 0.94 | 0.46–0.48 | 0.96–0.97 | 0.59 |
 
+<!-- TABLE S4c -->
+**Supplementary Table S4 (continued) | c, The seven metrics of Fig. 5b in each donor.** Spearman–Brown corrected ceilings, random halves (mean of seeds 0–2) / sgRNA halves (mean of the two directions), resting cells, selected and downsampled per donor as in a. Donors are ordered from the least to the most concentrated clones by the TRBC readout (Supplementary Table S2b). Asterisks, chance level 0.5; n.d., not defined (split-half correlation at most 0). The random-half ceiling is the higher in all 84 comparisons.
+
+| Metric | Donor 4 | Donor 1 | Donor 2 | Donor 3 |
+|---|---|---|---|---|
+| **All perturbations** | | | | |
+| DE overlap | 0.32 / 0.14 | 0.31 / 0.11 | 0.40 / 0.14 | 0.40 / 0.14 |
+| DE precision | 0.33 / 0.14 | 0.30 / 0.11 | 0.40 / 0.14 | 0.39 / 0.14 |
+| DE recall | 0.39 / 0.19 | 0.38 / 0.17 | 0.47 / 0.21 | 0.47 / 0.21 |
+| DE direction match* | 0.80 / 0.63 | 0.84 / 0.63 | 0.91 / 0.66 | 0.92 / 0.66 |
+| Pearson Δ | 0.28 / 0.08 | 0.32 / 0.06 | 0.44 / 0.08 | 0.48 / 0.09 |
+| Discrimination (L1)* | 0.81 / 0.69 | 0.83 / 0.69 | 0.88 / 0.70 | 0.90 / 0.71 |
+| Discrimination (cosine)* | 0.95 / 0.71 | 0.98 / 0.69 | 0.99 / 0.71 | 0.99 / 0.72 |
+| **Unexpressed targets** | | | | |
+| DE overlap | 0.16 / 0.03 | 0.21 / 0.05 | 0.36 / 0.11 | 0.36 / 0.12 |
+| DE precision | 0.16 / 0.03 | 0.21 / 0.05 | 0.35 / 0.11 | 0.36 / 0.12 |
+| DE recall | 0.23 / 0.05 | 0.29 / 0.10 | 0.43 / 0.17 | 0.45 / 0.19 |
+| DE direction match* | 0.75 / 0.57 | 0.81 / 0.59 | 0.90 / 0.63 | 0.91 / 0.64 |
+| Pearson Δ | 0.22 / 0.02 | 0.26 / n.d. | 0.40 / 0.03 | 0.46 / 0.04 |
+| Discrimination (L1)* | 0.78 / 0.66 | 0.82 / 0.68 | 0.88 / 0.71 | 0.89 / 0.69 |
+| Discrimination (cosine)* | 0.94 / 0.69 | 0.97 / 0.64 | 0.99 / 0.69 | 0.98 / 0.70 |
+| **Strength-matched knockdowns** | | | | |
+| DE overlap | 0.46 / 0.24 | 0.39 / 0.17 | 0.44 / 0.17 | 0.43 / 0.16 |
+| DE precision | 0.47 / 0.24 | 0.39 / 0.17 | 0.44 / 0.17 | 0.43 / 0.16 |
+| DE recall | 0.52 / 0.30 | 0.47 / 0.23 | 0.50 / 0.25 | 0.49 / 0.24 |
+| DE direction match* | 0.85 / 0.69 | 0.87 / 0.67 | 0.92 / 0.69 | 0.92 / 0.68 |
+| Pearson Δ | 0.33 / 0.14 | 0.38 / 0.13 | 0.49 / 0.13 | 0.51 / 0.14 |
+| Discrimination (L1)* | 0.84 / 0.72 | 0.84 / 0.70 | 0.88 / 0.69 | 0.90 / 0.72 |
+| Discrimination (cosine)* | 0.96 / 0.72 | 0.98 / 0.74 | 0.99 / 0.74 | 0.99 / 0.74 |
+| Perturbations (n) | 300 | 300 | 299 | 300 |
+
 ## Supplementary Table S5 | Structure of unexpressed targets carried by the common-to-specific predictor
 
 <!-- TABLE S5 -->
@@ -174,8 +239,37 @@ Under random halves in CD4, the predictor carried the structure of unexpressed t
 
 ## Supplementary Table S6 | Transfer models: scores, settings and fit checks
 
-<!-- TABLE S6 -->
-**Supplementary Table S6 | Transfer models in CD4 donor 1: scores against the two answers.** A, answer from the same sgRNA (shares clones with the input); B, answer from the other sgRNA against the same target (another transduction). Scores are Pearson correlations over the evaluation genes between predicted and answer effects, averaged over test sgRNAs; standard errors of A − B are clustered by target. For reference, the stimulated effects of the two sgRNAs of a target agree at r = 0.041 (unexpressed targets) and 0.059 (knockdowns).
+<!-- TABLE S6a -->
+**Supplementary Table S6 | Transfer models. a, Scores in the four donors.** Scores against the two answers, A (same sgRNA, shares clones with the input) / B (other sgRNA of the target, another transduction): Pearson correlations over the evaluation genes between predicted and answer effects, averaged over test sgRNAs, for each donor; the context mean ignores the perturbation, so its A and B are equal.
+
+| Model | Donor 1 | Donor 2 | Donor 3 | Donor 4 |
+|---|---|---|---|---|
+| **Unexpressed targets: A / B** | | | | |
+| Context mean (baseline) | 0.081 / 0.081 | 0.124 / 0.124 | 0.098 / 0.098 | 0.101 / 0.101 |
+| Copy resting effect | 0.220 / −0.001 | 0.291 / 0.004 | 0.368 / 0.004 | 0.179 / 0.007 |
+| Additive | 0.226 / 0.007 | 0.307 / 0.017 | 0.375 / 0.012 | 0.188 / 0.016 |
+| Linear (ridge) | 0.463 / 0.020 | 0.509 / 0.011 | 0.574 / 0.039 | 0.369 / 0.051 |
+| Arc perturb_mean | 0.165 / 0.007 | 0.235 / 0.005 | 0.299 / 0.007 | 0.139 / 0.002 |
+| Arc pseudobulk | 0.222 / 0.006 | 0.319 / 0.013 | 0.357 / 0.006 | 0.191 / 0.012 |
+| scGen | 0.227 / −0.004 | 0.302 / 0.003 | 0.362 / 0.012 | 0.206 / 0.015 |
+| STATE | 0.260 / 0.005 | 0.329 / −0.008 | 0.398 / 0.009 | 0.217 / 0.017 |
+| State (SE-600M + STATE) | 0.280 / 0.014 | 0.353 / 0.002 | 0.421 / 0.012 | 0.203 / 0.014 |
+| PIE (expression shift) | 0.228 / 0.108 | 0.272 / 0.101 | 0.323 / 0.100 | 0.199 / 0.093 |
+| **Strength-matched knockdowns: A / B** | | | | |
+| Context mean (baseline) | 0.106 / 0.106 | 0.138 / 0.138 | 0.112 / 0.112 | 0.113 / 0.113 |
+| Copy resting effect | 0.228 / 0.023 | 0.302 / 0.017 | 0.359 / 0.025 | 0.189 / 0.019 |
+| Additive | 0.239 / 0.034 | 0.321 / 0.034 | 0.368 / 0.034 | 0.199 / 0.029 |
+| Linear (ridge) | 0.457 / 0.042 | 0.532 / 0.065 | 0.550 / 0.061 | 0.397 / 0.064 |
+| Arc perturb_mean | 0.179 / 0.026 | 0.253 / 0.017 | 0.294 / 0.021 | 0.150 / 0.017 |
+| Arc pseudobulk | 0.238 / 0.030 | 0.337 / 0.040 | 0.347 / 0.042 | 0.205 / 0.030 |
+| scGen | 0.230 / 0.029 | 0.300 / 0.015 | 0.354 / 0.034 | 0.210 / 0.018 |
+| STATE | 0.260 / 0.020 | 0.343 / 0.034 | 0.378 / 0.030 | 0.240 / 0.030 |
+| State (SE-600M + STATE) | 0.297 / 0.038 | 0.389 / 0.030 | 0.394 / 0.033 | 0.228 / 0.026 |
+| PIE (expression shift) | 0.233 / 0.122 | 0.295 / 0.119 | 0.332 / 0.118 | 0.210 / 0.109 |
+| Test sgRNAs, unexpressed / knockdowns (n) | 254 / 246 | 270 / 252 | 254 / 252 | 280 / 274 |
+
+<!-- TABLE S6b -->
+**Supplementary Table S6 (continued) | b, Scores against the two answers in CD4 donor 1, with standard errors.** scGen is in a. A, answer from the same sgRNA (shares clones with the input); B, answer from the other sgRNA against the same target (another transduction). Scores are Pearson correlations over the evaluation genes between predicted and answer effects, averaged over test sgRNAs; standard errors of A − B are clustered by target. For reference, the stimulated effects of the two sgRNAs of a target agree at r = 0.041 (unexpressed targets) and 0.059 (knockdowns).
 
 | Model | Unexpressed: A | Unexpressed: B | Unexpressed: A − B (SE) | Knockdowns: A | Knockdowns: B | Knockdowns: A − B (SE) | Note |
 |---|---|---|---|---|---|---|---|
@@ -195,12 +289,34 @@ Under random halves in CD4, the predictor carried the structure of unexpressed t
 | CPA (default) | −0.001 | 0.003 | −0.003 (0.017) | −0.031 | 0.000 | −0.031 (0.020) | did not learn sgRNAs |
 | CPA (adapted) | 0.001 | −0.002 | 0.003 (0.017) | −0.021 | −0.003 | −0.018 (0.020) | did not learn sgRNAs |
 
-**Settings.** Context mean, copy, additive and linear are our baselines: the mean stimulated effect of the training sgRNAs; the sgRNA's resting effect; the resting effect plus the mean change between states of the training sgRNAs; and a ridge regression from 50 principal components of the resting effect to the stimulated effect, with λ chosen by five-fold cross-validation over training sgRNAs. STATE, Arc pseudobulk and Arc perturb_mean were trained with arc-state 0.11.1 (cell-load 0.10.4; `state tx train`) with the settings of the package's README example (40,000 steps, batch size 8; for STATE, a transformer backbone of 8 layers with hidden size 768 and the energy loss), on log1p CP10K expression of about 2,150 evaluation genes rather than the authors' highly variable genes, with the sgRNA as the perturbation and the state as the cell type, the few-shot split described in Methods, and the stimulated cells of 40 training sgRNAs for validation; predictions used `state tx predict --predict-only`, and effects were taken relative to the predicted non-targeting stimulated cells. State used the SE-600M foundation model to embed cells before STATE. PIE [@Verma2026] (arc-pie 1.0.0) used the authors' setting for the Replogle data (5,000 steps, effective batch size 128), with the released knowledge sources except ncbi_text, and the checkpoint with the best validation AUPRC. Stack [@Dong2026] (Stack-Large-Aligned) was run zero-shot as in its tutorial, with the resting cells of each test sgRNA as context and 1,000 stimulated control cells as target. CPA [@Lotfollahi2023] and biolord [@Piran2024] were run with their default or tutorial settings and with adapted settings. **Fit checks.** Re-predicting 200 training sgRNAs as if they were test sgRNAs, STATE correlated with their observed stimulated effects at r = 0.43–0.52 across the four donors, against −0.001 to 0.012 with other training sgRNAs, so it learned per-sgRNA effects; CPA and biolord with tutorial settings had fit correlations of at most 0.025 and did not learn per-sgRNA effects, so their A − B cannot be judged. STATE, copy, additive and linear were repeated in donors 2–4; the other models were run in donor 1 only.
+**Settings.** Context mean, copy, additive and linear are our baselines: the mean stimulated effect of the training sgRNAs; the sgRNA's resting effect; the resting effect plus the mean change between states of the training sgRNAs; and a ridge regression from 50 principal components of the resting effect to the stimulated effect, with λ chosen by five-fold cross-validation over training sgRNAs. STATE, Arc pseudobulk and Arc perturb_mean were trained with arc-state 0.11.1 (cell-load 0.10.4; `state tx train`) with the settings of the package's README example (40,000 steps, batch size 8; for STATE, a transformer backbone of 8 layers with hidden size 768 and the energy loss), on log1p CP10K expression of about 2,150 evaluation genes rather than the authors' highly variable genes, with the sgRNA as the perturbation and the state as the cell type, the few-shot split described in Methods, and the stimulated cells of 40 training sgRNAs for validation; predictions used `state tx predict --predict-only`, and effects were taken relative to the predicted non-targeting stimulated cells. State used the SE-600M foundation model to embed cells before STATE. PIE [@Verma2026] (arc-pie 1.0.0) used the authors' setting for the Replogle data (5,000 steps, effective batch size 128), with the released knowledge sources except ncbi_text, and the checkpoint with the best validation AUPRC. scGen [@Lotfollahi2019] (version 2.1.1 from its GitHub repository, with scvi-tools 0.20.3) was trained with the settings of its perturbation-prediction tutorial (at most 100 epochs, batch size 32, early stopping with patience 25), with the sgRNA as its cell type and the state as its condition, and the stimulated cells of the test sgRNAs held out; prediction follows the package's predict function: the latent shift between states, computed as the difference of equal-weight means over sgRNAs (the package's balancing, computed exactly instead of by resampling), is added to the latent representation of each test sgRNA's resting cells, which are then decoded. Stack [@Dong2026] (Stack-Large-Aligned) was run zero-shot as in its tutorial, with the resting cells of each test sgRNA as context and 1,000 stimulated control cells as target. CPA [@Lotfollahi2023] and biolord [@Piran2024] were run with their default or tutorial settings and with adapted settings. **Fit checks.** Re-predicting 200 training sgRNAs as if they were test sgRNAs, STATE correlated with their observed stimulated effects at r = 0.43–0.52 across the four donors, against −0.001 to 0.012 with other training sgRNAs, so it learned per-sgRNA effects; CPA and biolord with tutorial settings had fit correlations of at most 0.025 and did not learn per-sgRNA effects, so their A − B cannot be judged. All models except Stack, CPA and biolord were run in all four donors (a); in donors 2–4, Arc pseudobulk, State and PIE were run on another server with the same code, environments and settings.
 
-## Supplementary Table S7 | Data sets
+## Supplementary Table S7 | Multi-context screens: one transduction or separate transductions
 
 <!-- TABLE S7 -->
-**Supplementary Table S7 | Data sets, their uses and accessions.**
+**Supplementary Table S7 | Do the contexts of public multi-context screens come from one transduction?** Contexts from one transduction (a transduced, selected and expanded population later split, treated, differentiated or sampled) share clones; contexts transduced separately (other cell lines, donors or screens) do not. Calls rest on the transduction and screen-design paragraphs of each paper's methods, read in full text; the quoted sentences and references are in notes/multicontext_transduction_survey.md of the code repository. MOI, multiplicity of infection, given where the cell number is not stated. Benchmark use was checked in the benchmark papers or repositories. Sharing clones is necessary for the inflation of transfer scores; its size also depends on the effective number of clones per perturbation.
+
+| Data set | Contexts | Contexts from | Transduced cells per sgRNA | Use in benchmarks |
+|---|---|---|---|---|
+| Zhu et al. 2026, primary CD4+ T cells | rest, stimulated 8 h and 48 h; 4 donors | one transduction per donor; separate across donors | MOI about 0.2 | this study |
+| Frangieh et al. 2021, melanoma | control, IFN-γ, T-cell co-culture | one transduction | about 1,000 | PerturBench (transfer across conditions); scPerturb |
+| Papalexi et al. 2021, THP-1 | stimulated, unstimulated | one transduction per replicate | not stated | scPerturb; scPerturbBench |
+| Datlinger et al. 2017, Jurkat | stimulated, unstimulated | one transduction | not stated | scPerturb; scPerturbBench |
+| Dixit et al. 2016, dendritic cells and K562 | 0 h and 3 h after LPS; day 7 and day 13 | one transduction per pool | not stated | scPerturb |
+| Tian et al. 2019, iPSC and neurons | iPSC, day-7 neuron | one transduction | not stated | scPerturb |
+| Schmidt et al. 2022, primary T cells | stimulated, unstimulated; 2 donors | one transduction per donor | MOI 0.3 | none found |
+| Shifrut et al. 2018, primary T cells | stimulated, resting; 2 donors | one transduction per donor (resting arm not described) | not stated | scPerturb |
+| McFaline-Figueroa et al. 2024, glioblastoma lines | drugs and doses; 3 cell lines | one transduction per line; separate across lines | MOI about 0.1 | PerturBench |
+| Zhou et al. 2023, mouse T cells | input, tumour | one transduction | not stated | none found |
+| Replogle et al. 2022, K562 and RPE1 | 3 screens | separate transductions | about 1,000 | State; PIE; scPerturb; scPerturbBench |
+| Nadig et al. 2025, Jurkat and HepG2 | 2 screens | separate transductions | about 1,000 | State (held-out cell line); PIE |
+| Jiang et al. 2025, 6 cell lines | 5 cytokines per line | separate transduction per line | not stated | PerturBench |
+| Tian et al. 2021, neurons | CRISPRi, CRISPRa | separate transductions | MOI 0.1–0.2 | scPerturb; scPerturbBench |
+
+## Supplementary Table S8 | Data sets
+
+<!-- TABLE S8 -->
+**Supplementary Table S8 | Data sets, their uses and accessions.**
 
 | Data | System | Use | Source |
 |---|---|---|---|

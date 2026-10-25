@@ -22,6 +22,13 @@ RR = r">{\raggedright\arraybackslash}"
 PREAMBLE = PRE_V1.replace(r"\usepackage{booktabs,longtable,array,calc}", r"\usepackage{booktabs,longtable,array,calc,tabularx}"
                           + "\n\\newsavebox{\\tbox}\n\\DeclareUnicodeCharacter{2295}{\\ensuremath{\\oplus}}\n\\DeclareUnicodeCharacter{2016}{\\ensuremath{\\Vert}}"
                           + "\n\\DeclareUnicodeCharacter{03A9}{\\ensuremath{\\Omega}}\n\\DeclareUnicodeCharacter{2020}{\\textdagger}")
+# single author: no affiliation number, and the template's fixed "Corresponding author(s). E-mail(s): ...;" in the singular
+SINGLE_AUTHOR = "\n".join([r"\makeatletter",
+    r"\patchcmd{\@maketitle}{Corresponding author(s). E-mail(s): }{Corresponding author. E-mail: }{\typeout{PATCHOK title}}{\typeout{PATCHFAIL title}}",
+    r"\patchcmd{\email}{\textcolor{blue}{#1};\ }{\textcolor{blue}{#1}}{\typeout{PATCHOK email}}{\typeout{PATCHFAIL email}}",
+    r"\makeatother", ""])
+PREAMBLE = (PREAMBLE.replace("\\begin{document}", SINGLE_AUTHOR + "\\begin{document}")
+            .replace("\\author*[1]{", "\\author*{").replace("\\affil*[1]{", "\\affil{"))
 
 
 def pandoc(md, cols=1000):
@@ -115,7 +122,7 @@ def table(label, caption_md, md_table):
     for r in rows:
         tex_rows.append(flat[k:k + len(r)]); k += len(r)
     ln = lambda c: len(re.sub(r"[*~^`]", "", c.strip()))
-    num = re.compile(r"^[−-]?[\d,]*\.?\d+%?$|^–$|^$")
+    num = re.compile(r"^[−-]?[\d,]*\.?\d+%?( / [\d,]+)?$|^–$|^$")   # "1,235 / 1,097" counts as a number
     spec = ""
     for j in range(len(head)):
         col = [r[j].strip() for r in body if j < len(r)]
@@ -275,6 +282,8 @@ def main():
     warn = [l for l in r.stdout.splitlines() if "Missing character" in l or "undefined" in l.lower()]
     print("\n".join(warn[:20]))
     shutil.move(os.path.join(bdir, name + ".pdf"), out)
+    if "--keep-tex" in sys.argv[5:]:   # keep the LaTeX source next to the PDF (for the arXiv package)
+        shutil.copy(os.path.join(bdir, name + ".tex"), out[:-4] + ".tex")
     for ext in (".aux", ".log", ".out", ".tex"):
         p = os.path.join(bdir, name + ext)
         if os.path.exists(p):

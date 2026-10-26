@@ -1,0 +1,109 @@
+{
+ "rules": "Check: do the T-cell receptor genes (TRBC1, TRBC2, TRAC, TRGC2; clone markers by construction) drive the transfer\nscores? The baselines of pilot_baselines.py (copy, additive, linear) are scored with all pilot genes and with the TCR\ngenes left out (pilot_common.score gene_mask); for the linear model the TCR genes are also left out of the fit.\nUsage: PILOT_DONOR=<D> pilot_tcr_check.py <data_dir> <out.json>",
+ "tcr_genes": [
+  "TRBC1",
+  "TRBC2",
+  "TRGC2",
+  "TRAC"
+ ],
+ "with_tcr": {
+  "copy": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.21992580897234065,
+    "pearson_B": -0.0005821761995532867,
+    "leak": 0.220507985171894,
+    "leak_se": 0.008272626790811963
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.22826770245765698,
+    "pearson_B": 0.023307781123181243,
+    "leak": 0.20495992133447574,
+    "leak_se": 0.008921610930214048
+   }
+  },
+  "additive": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.2263256223371141,
+    "pearson_B": 0.0067145885076350135,
+    "leak": 0.21961103382947905,
+    "leak_se": 0.00836641629172575
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.2388423873361036,
+    "pearson_B": 0.03436856794645564,
+    "leak": 0.20447381938964798,
+    "leak_se": 0.008885565891903837
+   }
+  },
+  "linear": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.4627634488516536,
+    "pearson_B": 0.020209485731902087,
+    "leak": 0.4425539631197515,
+    "leak_se": 0.01971937477748537
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.4572957296773271,
+    "pearson_B": 0.042265817757059246,
+    "leak": 0.4150299119202678,
+    "leak_se": 0.019898336623195702
+   }
+  }
+ },
+ "without_tcr": {
+  "copy": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.1963477330907431,
+    "pearson_B": -0.0022441394212995907,
+    "leak": 0.19859187251204272,
+    "leak_se": 0.00830371693069514
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.2093235878298935,
+    "pearson_B": 0.02086578192203973,
+    "leak": 0.18845780590785371,
+    "leak_se": 0.008921393949039961
+   }
+  },
+  "additive": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.202953454982719,
+    "pearson_B": 0.0052578478874445,
+    "leak": 0.19769560709527448,
+    "leak_se": 0.008437699837766245
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.22030440301850618,
+    "pearson_B": 0.032390020035048275,
+    "leak": 0.18791438298345786,
+    "leak_se": 0.008896675439565868
+   }
+  },
+  "linear": {
+   "inert": {
+    "n": 254,
+    "pearson_A": 0.4403928495966954,
+    "pearson_B": 0.019786768128373093,
+    "leak": 0.42060608146832235,
+    "leak_se": 0.02126455192108577
+   },
+   "strong": {
+    "n": 246,
+    "pearson_A": 0.44264783593481294,
+    "pearson_B": 0.04219176937995015,
+    "leak": 0.4004560665548628,
+    "leak_se": 0.021065412403481858
+   }
+  }
+ }
+}

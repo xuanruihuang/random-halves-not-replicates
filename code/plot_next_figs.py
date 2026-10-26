@@ -273,11 +273,11 @@ def fig5(v1, res, out):
     # a: composition of the random-half signal (the TRBC-halves check is reported in the text, on other cells and targets)
     ax = P.axmm(fig, W, H, 13, 14, 40, 42); P.letter(fig, W, H, 2, 3, "a")
     cs = {"D1": J(v1, "clone_D1.json"), "D2": J(v1, "clone_D2.json"), "D3": J(res, "clone_tests_D3.json"), "D4": J(res, "clone_tests_D4.json")}
-    gd = J(v1, "guide_donor.json")
+    gd = J(v1, "guide_donor.json"); fsh = J(res, "sgrna_share_sq.json")["shares"]   # random halves keep f = mean(w0^2 + w1^2) of the sgRNA-specific energy
     bars = []
     for lab, dd, stt, rk in [("D%s\n%s" % (d[1], rk), cs[d], stt, rk) for d in ("D1", "D2", "D3", "D4") for stt, rk in (("rest", "rest"), ("stim48", "stim"))]:
         R = dd[stt]["depth"]["random_half"]["expressed"]["cross_per_target"]; Gg = dd[stt]["depth"]["guide_half"]["expressed"]["cross_per_target"]
-        rep = Gg / R; gsp = gd["guide_specific_over_diff_guide_" + rk] * rep
+        rep = Gg / R; gsp = fsh["%s_%s" % (lab[:2], stt)]["f_expressed"] * gd["guide_specific_over_diff_guide_" + rk] * rep
         bars.append((lab, 1 - rep - gsp, gsp, rep))
     x = np.arange(len(bars)); w = 0.7
     for xi, (lab, tr, gsp, rep) in enumerate(bars):

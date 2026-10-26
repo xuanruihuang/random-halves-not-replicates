@@ -3,6 +3,8 @@ stimulated): mean random-half cross-half signal of expressed targets minus that 
 the sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of
 guide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json;
 for donors 3 and 4, the same quantities from clone_tests_cd4.py (model_eval/results/clone_tests_D3.json, _D4.json).
+The sgRNA-specific part is scaled by f = mean over targets of w0^2 + w1^2 (sgrna_share_sq.json, next to out.json),
+because a random half pools both sgRNAs and keeps only that fraction of their specific energy.
 Usage: null_subtraction_cd4.py <v1 data dir> <out.json> [<donor>=<clone_tests json> ...]"""
 import sys, os, json
 
@@ -12,6 +14,7 @@ def main():
     files = [(os.path.join(d, "clone_D1.json"), "D1"), (os.path.join(d, "clone_D2.json"), "D2")]
     files += [(a.split("=", 1)[1], a.split("=", 1)[0]) for a in sys.argv[3:]]
     gd = json.load(open(os.path.join(d, "guide_donor.json")))
+    fsh = json.load(open(os.path.join(os.path.dirname(os.path.abspath(out)), "..", "sgrna_share_sq.json")))["shares"]
     res = {"rules": __doc__, "rows": []}
     for f, donor in files:
         c = json.load(open(f))
@@ -19,7 +22,8 @@ def main():
             x = c[st]["depth"]
             R = x["random_half"]["expressed"]["cross_per_target"]; G = x["guide_half"]["expressed"]["cross_per_target"]
             N = x["random_half"]["inert"]["cross_per_target"]
-            sg = G * (1 + gd["guide_specific_over_diff_guide_" + rk])
+            f = fsh["%s_%s" % (donor, st)]["f_expressed"]
+            sg = G * (1 + f * gd["guide_specific_over_diff_guide_" + rk])
             res["rows"].append(dict(donor=donor, state=st, random=R, sgRNA_half=G, null_random=N, random_minus_null=R - N,
                                     sgRNA_related=sg, random_over_sgRNA_half=R / G, corrected_over_sgRNA_related=(R - N) / sg))
     for r in res["rows"]:

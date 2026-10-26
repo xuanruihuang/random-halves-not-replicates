@@ -6,7 +6,10 @@ state). Inputs (all computed elsewhere; this script only collects them):
   ci_cd4.json, ci_cd4_D2.json (v1), ci_D3.json, ci_D4.json: ci_bootstrap.py cd4 - share of unexpressed targets with a
                              positive cross-half signal (random halves r1 / sgRNA halves), reliability labels (resting)
   trbc_split/<D>_<state>.json  trbc_split_cd4.py: constant-region halves
-  clone_D1.json, clone_D2.json (v1), clone_tests_D3/D4.json, guide_donor.json (v1): the three parts of Fig. 5a
+  clone_D1.json, clone_D2.json (v1), clone_tests_D3/D4.json, guide_donor.json (v1), sgrna_share_sq.json: the three parts
+                             of Fig. 5a; the sgRNA-specific part is f * ratio * (sgRNA-half share), where f = mean over targets
+                             of w0^2 + w1^2 (w_g, the share of a target's cells with sgRNA g), because a random half pools both
+                             sgRNAs and keeps only f of their specific energy
 Usage: table_per_donor_cd4.py <v1 data dir> <results dir> <out.md>"""
 import os, sys, json
 
@@ -24,6 +27,7 @@ def main():
     ci = {"D1": J(v1, "ci_cd4.json"), "D2": J(v1, "ci_cd4_D2.json"), "D3": J(res, "ci_D3.json"), "D4": J(res, "ci_D4.json")}
     gd = J(v1, "guide_donor.json")
     cl = {"D1": J(v1, "clone_D1.json"), "D2": J(v1, "clone_D2.json"), "D3": ct["D3"], "D4": ct["D4"]}
+    fsh = J(res, "sgrna_share_sq.json")["shares"]
     cols = [(d, s) for d in DON for s in ST]
     rows = []
 
@@ -40,7 +44,7 @@ def main():
     row("r of the TRBC1 deviation, random halves", lambda d, s: ct[d][s[0]]["trbc"]["reproducibility_random_half"]["pearson"], lambda v: "%.2f" % v)
     row("r of the TRBC1 deviation, sgRNA halves", lambda d, s: ct[d][s[0]]["trbc"]["reproducibility_guide_half"]["pearson"], lambda v: ("%.2f" % v).replace("-0.00", "0.00").replace("-", "−"))
     row("r of the TRBC1 deviation, resting vs stimulated", lambda d, s: ke[d]["pearson_rest_vs_stim"] if s[0] == "rest" else None, lambda v: "%.2f" % v)
-    row("Upper bound on K~eff~ (median n/z^2^)", lambda d, s: ke[d]["keff_%s" % ("rest" if s[0] == "rest" else "stim")]["keff_upper_median"], lambda v: "%.1f" % v)
+    row("Estimated upper bound on K~eff~ (median n/z^2^)", lambda d, s: ke[d]["keff_%s" % ("rest" if s[0] == "rest" else "stim")]["keff_upper_median"], lambda v: "%.1f" % v)
     rows.append("| **Unexpressed targets, positive cross-half signal (%)** |" + " |" * len(cols))
     row("Random halves", lambda d, s: ci[d]["random_r1"]["inert_frac_pos_%s" % s[2]][0], pc)
     row("sgRNA halves", lambda d, s: ci[d]["guide"]["inert_frac_pos_%s" % s[2]][0], pc)
@@ -56,7 +60,7 @@ def main():
 
     def parts(d, s):
         x = cl[d][s[0]]["depth"]; R = x["random_half"]["expressed"]["cross_per_target"]; G = x["guide_half"]["expressed"]["cross_per_target"]
-        rep = G / R; gsp = gd["guide_specific_over_diff_guide_" + s[2]] * rep
+        rep = G / R; gsp = fsh["%s_%s" % (d, s[0])]["f_expressed"] * gd["guide_specific_over_diff_guide_" + s[2]] * rep
         return rep, gsp, 1 - rep - gsp
     rows.append("| **Expressed targets, random-half signal (%)** |" + " |" * len(cols))
     row("Reproduced by the other sgRNA", lambda d, s: parts(d, s)[0], pc)

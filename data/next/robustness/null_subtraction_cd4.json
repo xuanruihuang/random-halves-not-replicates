@@ -1,5 +1,5 @@
 {
- "rules": "Null subtraction as an approximate correction without independent replicates (CD4 donors 1-4, resting and\nstimulated): mean random-half cross-half signal of expressed targets minus that of unexpressed targets, compared with\nthe sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of\nguide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json;\nfor donors 3 and 4, the same quantities from clone_tests_cd4.py (model_eval/results/clone_tests_D3.json, _D4.json).\nUsage: null_subtraction_cd4.py <v1 data dir> <out.json> [<donor>=<clone_tests json> ...]",
+ "rules": "Null subtraction as an approximate correction without independent replicates (CD4 donors 1-4, resting and\nstimulated): mean random-half cross-half signal of expressed targets minus that of unexpressed targets, compared with\nthe sgRNA-half signal plus the sgRNA-specific part (sgRNA-half signal times the across-donor sgRNA-specific ratio of\nguide_donor.json), as in Fig. 5a. Inputs: the v1 result files clone_D1.json, clone_D2.json, guide_donor.json;\nfor donors 3 and 4, the same quantities from clone_tests_cd4.py (model_eval/results/clone_tests_D3.json, _D4.json).\nThe sgRNA-specific part is scaled by f = mean over targets of w0^2 + w1^2 (sgrna_share_sq.json, next to out.json),\nbecause a random half pools both sgRNAs and keeps only that fraction of their specific energy.\nUsage: null_subtraction_cd4.py <v1 data dir> <out.json> [<donor>=<clone_tests json> ...]",
  "rows": [
   {
    "donor": "D1",
@@ -8,9 +8,9 @@
    "sgRNA_half": 1.6869427375385995,
    "null_random": 6.791597558738299,
    "random_minus_null": 2.0915710455086858,
-   "sgRNA_related": 3.0414835923843784,
+   "sgRNA_related": 2.4556583774711918,
    "random_over_sgRNA_half": 5.265838849520359,
-   "corrected_over_sgRNA_related": 0.6876811864926069
+   "corrected_over_sgRNA_related": 0.8517353491419116
   },
   {
    "donor": "D1",
@@ -19,9 +19,9 @@
    "sgRNA_half": 1.3264750862803545,
    "null_random": 7.082021324997401,
    "random_minus_null": 1.341854994078636,
-   "sgRNA_related": 1.9697251371713993,
+   "sgRNA_related": 1.6873065617226324,
    "random_over_sgRNA_half": 6.350572586099537,
-   "corrected_over_sgRNA_related": 0.6812397165249112
+   "corrected_over_sgRNA_related": 0.7952644910647936
   },
   {
    "donor": "D2",
@@ -30,9 +30,9 @@
    "sgRNA_half": 1.6761566425014423,
    "null_random": 12.565514639865201,
    "random_minus_null": 3.75012597733903,
-   "sgRNA_related": 3.0220367372236168,
+   "sgRNA_related": 2.4933177339167503,
    "random_over_sgRNA_half": 9.733959346935077,
-   "corrected_over_sgRNA_related": 1.2409266674846309
+   "corrected_over_sgRNA_related": 1.504070631001353
   },
   {
    "donor": "D2",
@@ -41,9 +41,9 @@
    "sgRNA_half": 2.5805760772666924,
    "null_random": 12.446156382798621,
    "random_minus_null": 4.188623985436616,
-   "sgRNA_related": 3.831979673307678,
+   "sgRNA_related": 3.334445824525674,
    "random_over_sgRNA_half": 6.446149956506823,
-   "corrected_over_sgRNA_related": 1.0930705125116413
+   "corrected_over_sgRNA_related": 1.2561679528958756
   },
   {
    "donor": "D3",
@@ -52,9 +52,9 @@
    "sgRNA_half": 2.615001106780259,
    "null_random": 13.883330077262684,
    "random_minus_null": 2.047341477997472,
-   "sgRNA_related": 4.714732031713177,
+   "sgRNA_related": 3.868167254258584,
    "random_over_sgRNA_half": 6.092032433162111,
-   "corrected_over_sgRNA_related": 0.43424344463826003
+   "corrected_over_sgRNA_related": 0.5292794606395292
   },
   {
    "donor": "D3",
@@ -63,9 +63,9 @@
    "sgRNA_half": 2.1630568351877337,
    "null_random": 11.255461378118572,
    "random_minus_null": 1.8613717110429455,
-   "sgRNA_related": 3.2119920422683275,
+   "sgRNA_related": 2.7873958594053176,
    "random_over_sgRNA_half": 6.064026092972769,
-   "corrected_over_sgRNA_related": 0.5795069497521027
+   "corrected_over_sgRNA_related": 0.6677816158627944
   },
   {
    "donor": "D4",
@@ -74,9 +74,9 @@
    "sgRNA_half": 1.7303227213943309,
    "null_random": 5.60560704100753,
    "random_minus_null": 1.8329877648199506,
-   "sgRNA_related": 3.1196957961534393,
+   "sgRNA_related": 2.492955552202708,
    "random_over_sgRNA_half": 4.298963837123575,
-   "corrected_over_sgRNA_related": 0.5875533656454615
+   "corrected_over_sgRNA_related": 0.7352669257180989
   },
   {
    "donor": "D4",
@@ -85,9 +85,9 @@
    "sgRNA_half": 1.6830861932807342,
    "null_random": 4.522319862060378,
    "random_minus_null": 2.1166586762724044,
-   "sgRNA_related": 2.499268336978401,
+   "sgRNA_related": 2.133117293320846,
    "random_over_sgRNA_half": 3.944526765674335,
-   "corrected_over_sgRNA_related": 0.8469113319906381
+   "corrected_over_sgRNA_related": 0.992284241893319
   }
  ]
 }

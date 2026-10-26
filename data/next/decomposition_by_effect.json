@@ -1,0 +1,261 @@
+{
+ "rules": "Three-part decomposition of the random-half signal of expressed CD4 targets, stratified by effect size (A100).\nPer donor and state, the per-target random-half (r1 = 0 vs 1) and sgRNA-half (gp = 0 vs 1) cross-half signals are\ncomputed exactly as in clone_tests_cd4.py (same genes, targets, control referencing, target gene zeroed, referenced to the\nmean of the unexpressed targets). Targets are stratified by an effect size measured without shared clones: the mean\nsgRNA-half cross-half signal of the same target in the other three donors (same state), in tertiles over the expressed\ntargets present in all four donors. In each tertile: reproduced = sum G / sum R; sgRNA-specific = f * ratio * reproduced\n(f from sgrna_share_sq.json, ratio from guide_donor.json); within one transduction = the rest.\nUsage: decomposition_by_effect.py <out.json>",
+ "results": {
+  "D1_rest": {
+   "n_common": 60,
+   "all": {
+    "reproduced": 0.30869548079733067
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 20,
+     "effect_other_donors_mean": -2.530628124588457,
+     "reproduced": 0.10447524991702645,
+     "specific": 0.04743260909984344,
+     "within_transduction": 0.84809214098313
+    },
+    {
+     "tertile": 2,
+     "n": 20,
+     "effect_other_donors_mean": 1.8188387052299722,
+     "reproduced": 0.08979004701747752,
+     "specific": 0.04076540811932994,
+     "within_transduction": 0.8694445448631926
+    },
+    {
+     "tertile": 3,
+     "n": 20,
+     "effect_other_donors_mean": 9.306202025907726,
+     "reproduced": 0.5636184753787482,
+     "specific": 0.25588734982995287,
+     "within_transduction": 0.18049417479129892
+    }
+   ]
+  },
+  "D2_rest": {
+   "n_common": 60,
+   "all": {
+    "reproduced": 0.12554291550187033
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 20,
+     "effect_other_donors_mean": -1.9319042906984432,
+     "reproduced": -0.07105229175906622,
+     "specific": -0.03451194115082462,
+     "within_transduction": 1.1055642329098907
+    },
+    {
+     "tertile": 2,
+     "n": 20,
+     "effect_other_donors_mean": 1.9524931937291428,
+     "reproduced": 0.04428108077355687,
+     "specific": 0.021508469549919987,
+     "within_transduction": 0.9342104496765231
+    },
+    {
+     "tertile": 3,
+     "n": 20,
+     "effect_other_donors_mean": 9.264718615742465,
+     "reproduced": 0.29356295976656593,
+     "specific": 0.1425911443628116,
+     "within_transduction": 0.5638458958706225
+    }
+   ]
+  },
+  "D3_rest": {
+   "n_common": 60,
+   "all": {
+    "reproduced": 0.24350000667457714
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 20,
+     "effect_other_donors_mean": -2.1846680188333827,
+     "reproduced": 0.06991981484317054,
+     "specific": 0.033383761303496795,
+     "within_transduction": 0.8966964238533326
+    },
+    {
+     "tertile": 2,
+     "n": 20,
+     "effect_other_donors_mean": 0.725725050884142,
+     "reproduced": 0.34648518567767217,
+     "specific": 0.16543205613181033,
+     "within_transduction": 0.4880827581905175
+    },
+    {
+     "tertile": 3,
+     "n": 20,
+     "effect_other_donors_mean": 8.034321362077412,
+     "reproduced": 0.2702578215817775,
+     "specific": 0.1290367062087599,
+     "within_transduction": 0.6007054722094627
+    }
+   ]
+  },
+  "D4_rest": {
+   "n_common": 60,
+   "all": {
+    "reproduced": 0.3542343887530102
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 20,
+     "effect_other_donors_mean": -2.5595278035235935,
+     "reproduced": 0.0682134007497857,
+     "specific": 0.02995410223961332,
+     "within_transduction": 0.901832497010601
+    },
+    {
+     "tertile": 2,
+     "n": 20,
+     "effect_other_donors_mean": 2.2007620849324736,
+     "reproduced": 0.002360824621705556,
+     "specific": 0.0010366933961812015,
+     "within_transduction": 0.9966024819821133
+    },
+    {
+     "tertile": 3,
+     "n": 20,
+     "effect_other_donors_mean": 9.20992679298118,
+     "reproduced": 0.6631557864530347,
+     "specific": 0.29120724095063955,
+     "within_transduction": 0.04563697259632571
+    }
+   ]
+  },
+  "D1_stim48": {
+   "n_common": 64,
+   "all": {
+    "reproduced": 0.2929822327810955
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 21,
+     "effect_other_donors_mean": -2.6424388470478006,
+     "reproduced": 0.273079388918917,
+     "specific": 0.07352833717836074,
+     "within_transduction": 0.6533922739027224
+    },
+    {
+     "tertile": 2,
+     "n": 21,
+     "effect_other_donors_mean": 0.698116150351376,
+     "reproduced": 0.11051819073962325,
+     "specific": 0.029757715605033267,
+     "within_transduction": 0.8597240936553435
+    },
+    {
+     "tertile": 3,
+     "n": 22,
+     "effect_other_donors_mean": 6.352530228038432,
+     "reproduced": 0.3826131855396755,
+     "specific": 0.1030209984965259,
+     "within_transduction": 0.5143658159637986
+    }
+   ]
+  },
+  "D2_stim48": {
+   "n_common": 64,
+   "all": {
+    "reproduced": 0.07430957562921991
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 21,
+     "effect_other_donors_mean": -1.6864703337022828,
+     "reproduced": 0.10834913531313481,
+     "specific": 0.031330375784498,
+     "within_transduction": 0.8603204889023671
+    },
+    {
+     "tertile": 2,
+     "n": 21,
+     "effect_other_donors_mean": 0.8464745533639324,
+     "reproduced": 0.004506337475398846,
+     "specific": 0.0013030583595150893,
+     "within_transduction": 0.9941906041650861
+    },
+    {
+     "tertile": 3,
+     "n": 22,
+     "effect_other_donors_mean": 6.559394214251674,
+     "reproduced": 0.11326654125495593,
+     "specific": 0.03275229923222027,
+     "within_transduction": 0.8539811595128238
+    }
+   ]
+  },
+  "D3_stim48": {
+   "n_common": 64,
+   "all": {
+    "reproduced": 0.09530073986991637
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 21,
+     "effect_other_donors_mean": -2.1823305612471473,
+     "reproduced": 0.13484857511261503,
+     "specific": 0.03852648769211062,
+     "within_transduction": 0.8266249371952743
+    },
+    {
+     "tertile": 2,
+     "n": 21,
+     "effect_other_donors_mean": 0.8508460771415236,
+     "reproduced": -0.01721708261514331,
+     "specific": -0.004918952394657655,
+     "within_transduction": 1.0221360350098008
+    },
+    {
+     "tertile": 3,
+     "n": 22,
+     "effect_other_donors_mean": 6.796575361244094,
+     "reproduced": 0.17022758795104131,
+     "specific": 0.04863433719322961,
+     "within_transduction": 0.7811380748557291
+    }
+   ]
+  },
+  "D4_stim48": {
+   "n_common": 64,
+   "all": {
+    "reproduced": 0.37993781429870366
+   },
+   "tertiles": [
+    {
+     "tertile": 1,
+     "n": 21,
+     "effect_other_donors_mean": -2.837870264861437,
+     "reproduced": 0.34505055115909994,
+     "specific": 0.09132283834825818,
+     "within_transduction": 0.5636266104926418
+    },
+    {
+     "tertile": 2,
+     "n": 21,
+     "effect_other_donors_mean": 0.2923766628175056,
+     "reproduced": 0.10892870501898713,
+     "specific": 0.028829626518542407,
+     "within_transduction": 0.8622416684624705
+    },
+    {
+     "tertile": 3,
+     "n": 22,
+     "effect_other_donors_mean": 7.172553756950601,
+     "reproduced": 0.5744299765640264,
+     "specific": 0.15203156672531182,
+     "within_transduction": 0.2735384567106618
+    }
+   ]
+  }
+ }
+}

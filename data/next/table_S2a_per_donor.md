@@ -5,7 +5,7 @@
 | r of the TRBC1 deviation, random halves | 0.93 | 0.92 | 0.96 | 0.96 | 0.97 | 0.97 | 0.86 | 0.87 |
 | r of the TRBC1 deviation, sgRNA halves | 0.00 | −0.01 | 0.02 | 0.02 | −0.01 | −0.02 | 0.00 | −0.01 |
 | r of the TRBC1 deviation, resting vs stimulated | 0.89 | – | 0.94 | – | 0.96 | – | 0.88 | – |
-| Upper bound on K~eff~ (median n/z^2^) | 6.5 | 6.8 | 3.9 | 4.0 | 3.4 | 3.7 | 12.4 | 11.6 |
+| Estimated upper bound on K~eff~ (median n/z^2^) | 6.5 | 6.8 | 3.9 | 4.0 | 3.4 | 3.7 | 12.4 | 11.6 |
 | **Unexpressed targets, positive cross-half signal (%)** | | | | | | | | |
 | Random halves | 99 | 97 | 99 | 99 | 100 | 100 | 96 | 97 |
 | sgRNA halves | 48 | 54 | 53 | 50 | 55 | 54 | 50 | 50 |
@@ -19,8 +19,8 @@
 | Expressed targets: signal kept (%) | 31 | 31 | 28 | 29 | 26 | 32 | 38 | 44 |
 | **Expressed targets, random-half signal (%)** | | | | | | | | |
 | Reproduced by the other sgRNA | 19 | 16 | 10 | 16 | 16 | 16 | 23 | 25 |
-| Specific to the sgRNA | 15 | 8 | 8 | 8 | 13 | 8 | 19 | 12 |
-| Only within one transduction | 66 | 77 | 81 | 77 | 70 | 76 | 58 | 62 |
+| Specific to the sgRNA | 9 | 4 | 5 | 5 | 8 | 5 | 10 | 7 |
+| Only within one transduction | 72 | 80 | 85 | 80 | 76 | 79 | 66 | 68 |
 | Targets (n) | 787 | 847 | 515 | 536 | 542 | 539 | 1,066 | 1,237 |
 | **Labelled reliable, resting cells (%)** | | | | | | | | |
 | Unexpressed, random halves | 18 | – | 42 | – | 60 | – | 8.0 | – |

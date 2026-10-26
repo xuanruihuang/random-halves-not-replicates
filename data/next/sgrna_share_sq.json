@@ -1,0 +1,53 @@
+{
+ "rules": "sgRNA cell shares per target for the three-part decomposition: mean over targets of w0^2 + w1^2, where w_g is the\nshare of the target's cells carrying sgRNA g (n8 codes gp*4 + r1*2 + r2), over the targets of clone_tests_cd4.py\n(>= 8 cells in every quarter side); expressed targets (control mean >= 0.5) where sum8 is available, else all targets.",
+ "shares": {
+  "D1_rest": {
+   "f_all": 0.5681389730591175,
+   "f_expressed": 0.5675101176775612,
+   "n_targets": 3951,
+   "dir": "<store>/cd4_sc/cells_D1_Rest_v2"
+  },
+  "D1_stim48": {
+   "f_all": 0.5635565849509614,
+   "f_expressed": 0.5609505587173228,
+   "n_targets": 4185,
+   "dir": "<store>/cd4_sc/cells_D1_Stim48hr_v2"
+  },
+  "D2_rest": {
+   "f_all": 0.6033946208848999,
+   "f_expressed": 0.6071574240675517,
+   "n_targets": 2575,
+   "dir": "<store>/cd4_sc/cells_D2_Rest"
+  },
+  "D2_stim48": {
+   "f_all": 0.602474024984101,
+   "f_expressed": 0.602419355069754,
+   "n_targets": 2864,
+   "dir": "<store>/cd4_sc/cells_D2_Stim48hr"
+  },
+  "D3_rest": {
+   "f_all": 0.5938495114477736,
+   "f_expressed": 0.5968222559366083,
+   "n_targets": 2604,
+   "dir": "<store>/cd4_sc/cells_D3_Rest"
+  },
+  "D3_stim48": {
+   "f_all": 0.5982117888414673,
+   "f_expressed": 0.595212192329067,
+   "n_targets": 2492,
+   "dir": "<store>/cd4_sc/cells_D3_Stim48hr"
+  },
+  "D4_rest": {
+   "f_all": 0.5485566707672355,
+   "f_expressed": 0.5489042825596739,
+   "n_targets": 5726,
+   "dir": "<store>/cd4_sc/cells_D4_Rest"
+  },
+  "D4_stim48": {
+   "f_all": 0.5524661958541301,
+   "f_expressed": 0.5513856233135315,
+   "n_targets": 6124,
+   "dir": "<store>/cd4_sc/cells_D4_Stim48hr"
+  }
+ }
+}

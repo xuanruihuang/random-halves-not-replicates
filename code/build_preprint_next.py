@@ -247,7 +247,8 @@ def main():
     supp = supplement(s, srel, sfdir).replace("\\section*{", "\\section{").replace("\\subsection*{", "\\subsection{")
     pre = PREAMBLE % {"short": SHORT, "title": TITLE}
     if anonymous:
-        pre = re.sub(r"\\author\*.*\n\\affil\*.*\n", "", pre)
+        pre = re.sub(r"\\author\*?.*\n\\affil\*?.*\n", "", pre)   # the single-author patch drops the stars
+        assert "\\author" not in pre and "\\affil" not in pre, "author block not removed"
     name = "_sn_next"
     abstract_tex = pandoc(common(abstract)).strip(); bib = bibliography(items)
     for it in range(10):   # move legend panels of figures that do not fit on one page into a continuation float

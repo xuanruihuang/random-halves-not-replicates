@@ -1,10 +1,9 @@
-"""Main data figures of the clone-effect preprint. All numbers come from the small result files in <data_dir>
-(data/ in this repository; data/README.md lists the script behind each file); per-perturbation arrays from
-export_fig_data.py.
+"""Main data figures of the clone-effect preprint (local; ppdm env). All numbers come from the result files listed
+in notes/preprint_clone_ledger.md (copied into <data_dir>); per-perturbation arrays from export_fig_data.py.
 fig2_null.{pdf,png}       null perturbations look reproducible under random halves (CD4 unexpressed targets, donor
                           halves, non-targeting guides across screens)
 fig3_clones.{pdf,png}     direct clone evidence (TRBC marker), depth, composition of the random-half signal
-                          (guide_donor.json from cd4_guide_donor.py)
+                          (guide_donor.json = A100 review_tests/cd4_guide_donor_v2/metrics_cd4_guide_donor.json)
 fig4_ceilings.{pdf,png}   consequences for ceilings and reliability labels (cell-eval itself, Wang-style labels,
                           Spearman-Brown at chance)
 fig5_contexts.{pdf,png}   cross-context structure (shared vs separate clones, absolute energy, predictors, model)
@@ -17,6 +16,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import plot_schematics as PS
 
 plt.rcParams.update({"font.family": ["Arial", "DejaVu Sans"], "font.size": 6.5, "axes.linewidth": 0.6, "xtick.major.width": 0.6,
@@ -60,7 +60,7 @@ def sentence_case(fig):
     for ax in fig.axes:
         for get, put in ((ax.get_xlabel, ax.set_xlabel), (ax.get_ylabel, ax.set_ylabel)):
             s = get()
-            if s and s[0].islower():
+            if s and s[0].islower() and not s.startswith("sgRNA"):
                 put(s[0].upper() + s[1:])
 
 

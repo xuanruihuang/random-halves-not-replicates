@@ -48,7 +48,7 @@ def fig2(v1, res, out):
     fig = plt.figure(figsize=(W * MM, H * MM))
     ax = P.axmm(fig, W, H, 12, 14, 70, 33); P.letter(fig, W, H, 2, 3, "a")
     m = D1["inert"]
-    for k, col, nm in (("random", RED, "random halves"), ("guide", BLUE, "guide halves")):
+    for k, col, nm in (("random", RED, "random halves"), ("guide", BLUE, "sgRNA halves")):
         v = D1["cross_%s_rest" % k][m]
         ax.hist(np.clip(v, -15, 30), bins=np.linspace(-15, 30, 61), color=col, alpha=0.75, histtype="stepfilled", lw=0,
                 label="%s: %d%% above 0" % (nm, round(100 * (v > 0).mean())))
@@ -71,7 +71,7 @@ def fig2(v1, res, out):
     ax.axhline(50, color="k", lw=0.6, ls="--"); ax.set_ylim(0, 118); ax.set_yticks([0, 25, 50, 75, 100])
     ax.set_xticks(list(x) + list(xd)); ax.set_xticklabels([g for g, _, _ in groups] + ["donors\nrest", "donors\nstim"], fontsize=5.0)
     ax.set_ylabel("Targets with positive\ncross-half signal (%)")
-    ax.legend(handles=P.patches(((RED, "random halves"), (BLUE, "guide or donor halves"))), fontsize=5.6, loc="upper center", ncol=2, handlelength=1, columnspacing=1)
+    ax.legend(handles=P.patches(((RED, "random halves"), (BLUE, "sgRNA or donor halves"))), fontsize=5.6, loc="upper center", ncol=2, handlelength=1, columnspacing=1)
     P.title(ax, "Unexpressed targets")
     P.letter(fig, W, H, 2, 62, "c")
     ntc = J(v1, "ntc_null.json")
@@ -87,13 +87,13 @@ def fig2(v1, res, out):
         P.err(axl, xi - w / 2, r[1]["random_frac_pos"], *r[1]["random_frac_pos_ci95"], scale=100)
         P.err(axl, xi + w / 2, r[1]["pairs_frac_pos_mean"], *r[1]["pairs_frac_pos_range"], scale=100)
     axl.axhline(50, color="k", lw=0.6, ls="--"); axl.set_ylim(0, 118); axl.set_yticks([0, 25, 50, 75, 100])
-    axl.set_xticks(x); axl.set_xticklabels([r[0] for r in rows], fontsize=5.4); axl.set_ylabel("Guides with positive\ncross-half signal (%)")
-    axl.legend(handles=P.patches(((RED, "random halves"), (BLUE, "different guides"))), fontsize=5.6, loc="upper right", ncol=2, handlelength=1, columnspacing=1)
-    P.title(axl, "Non-targeting guides")
+    axl.set_xticks(x); axl.set_xticklabels([r[0] for r in rows], fontsize=5.4); axl.set_ylabel("sgRNAs with positive\ncross-half signal (%)")
+    axl.legend(handles=P.patches(((RED, "random halves"), (BLUE, "different sgRNAs"))), fontsize=5.6, loc="upper right", ncol=2, handlelength=1, columnspacing=1)
+    P.title(axl, "Non-targeting sgRNAs")
     P.letter(fig, W, H, 104, 62, "d")
     c1, c2 = J(res, "depth_grid", "depth_grid_D1.json"), J(res, "depth_grid", "depth_grid_D2.json")
     depth_panels(fig, W, H, c1, c2, 114, 72, 27, 30, 13)
-    key = [Line2D([], [], color=RED, lw=0.8, label="random"), Line2D([], [], color=BLUE, lw=0.8, label="guide"),
+    key = [Line2D([], [], color=RED, lw=0.8, label="random"), Line2D([], [], color=BLUE, lw=0.8, label="sgRNA"),
            Line2D([], [], color="k", marker="o", ls="none", ms=2.6, label="D1"), Line2D([], [], color="k", marker="s", ls="none", ms=2.6, label="D2"),
            Line2D([], [], color="k", lw=0.7, label="rest"), Line2D([], [], color="k", lw=0.7, ls="--", label="stim")]
     fig.legend(handles=key, loc="upper left", bbox_to_anchor=(112 / W, 1 - 113.5 / H), ncol=6, fontsize=5.2, handlelength=1.4, columnspacing=0.8, frameon=False)
@@ -152,7 +152,7 @@ def fig3(v1, res, out):
     ax.set_xlabel("TRBC1 share of a perturbation (z-score)"); ax.set_ylabel("perturbations"); ax.legend(fontsize=5.6, loc="upper left")
     P.title(ax, "TRBC1 share per perturbation")
     P.letter(fig, W, H, 2, 58, "c")
-    for j, (k, col, nm) in enumerate((("random", RED, "random halves"), ("guide", BLUE, "guide halves"))):
+    for j, (k, col, nm) in enumerate((("random", RED, "random halves"), ("guide", BLUE, "sgRNA halves"))):
         ax = P.axmm(fig, W, H, 12 + j * 46, 70, 33, 30)
         a, b = D1["trbc_dA_%s_rest" % k], D1["trbc_dB_%s_rest" % k]
         okk = (D1["trbc_nA_%s_rest" % k] >= 15) & (D1["trbc_nB_%s_rest" % k] >= 15)
@@ -160,7 +160,7 @@ def fig3(v1, res, out):
         lo, hi = -0.35, 0.56; ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.axhline(0, color="k", lw=0.4); ax.axvline(0, color="k", lw=0.4)   # covers all points
         r = np.corrcoef(a[okk], b[okk])[0, 1]
         ax.set_xlabel("TRBC1 share deviation, half A"); ax.set_ylabel("TRBC1 share deviation, half B" if j == 0 else "")
-        ax.set_title("%s (r = %s)" % (nm[0].upper() + nm[1:], ("%.2f" % r).replace("-", "−")), loc="left", fontsize=6.5, pad=3)
+        ax.set_title("%s (r = %s)" % (nm if nm.startswith("sgRNA") else nm[0].upper() + nm[1:], ("%.2f" % r).replace("-", "−")), loc="left", fontsize=6.5, pad=3)
     # d: TRBC halves (CD4: the strong system)
     ax = P.axmm(fig, W, H, 116, 70, 62, 30); P.letter(fig, W, H, 106, 58, "d")
     labs = [("D%d_%s" % (d, k), "D%d\n%s" % (d, s_)) for d in (1, 2, 3, 4) for k, s_ in (("Rest", "rest"), ("Stim48", "stim"))]
@@ -173,7 +173,7 @@ def fig3(v1, res, out):
     ax.axhline(50, color="k", lw=0.6, ls="--"); ax.set_ylim(0, 118); ax.set_yticks([0, 25, 50, 75, 100])
     ax.set_xticks(x); ax.set_xticklabels([l for _, l in labs], fontsize=5.0); ax.set_ylabel("Targets with positive\ncross-half signal (%)")
     P.title(ax, "CD4, unexpressed targets")
-    fig.legend(handles=P.patches(((RED, "random halves"), (BLUE, "TRBC halves (no shared clone)"))), fontsize=5.6, loc="upper left",
+    fig.legend(handles=P.patches(((RED, "random halves"), (BLUE, "constant-region halves (no shared clone)"))), fontsize=5.6, loc="upper left",
                bbox_to_anchor=(116 / W, 1 - 110 / H), ncol=2, handlelength=1, columnspacing=1, frameon=False)
     # e: clone-barcode halves, schematic; f: organoid perturbations (the weak system)
     ax = P.axmm(fig, W, H, 4, 122, 58, 44); draw_halves(ax); P.letter(fig, W, H, 2, 119, "e")
@@ -222,7 +222,7 @@ def fig4(v1, res, out):
     k = float(np.sum(np.array(xs) * np.array(ys)) / np.sum(np.array(xs) ** 2))
     xx = np.linspace(0, 0.6, 20); ax.plot(xx, k * xx, color="k", lw=0.6, ls="--")
     ax.set_xlim(0, 0.6); ax.set_ylim(0, 0.015); ax.set_yticks([0, 0.005, 0.010, 0.015]); ax.set_yticklabels(["0", "0.005", "0.010", "0.015"])
-    ax.set_xlabel("TRBC readout (clone variance of a guide mean)"); ax.set_ylabel("expression readout\n(clone strength, as in c)")
+    ax.set_xlabel("TRBC readout (clone variance of an sgRNA mean)"); ax.set_ylabel("expression readout\n(clone strength, as in c)")
     ax.legend(handles=[Line2D([], [], marker="o", ls="none", color="k", ms=3, label="resting"), Line2D([], [], marker="s", ls="none", color="k", ms=3, label="stimulated")],
               fontsize=5.6, loc="upper left")
     P.title(ax, "CD4, four donors")
@@ -235,7 +235,7 @@ def fig4(v1, res, out):
     rows = [("Human CAR-T, in mice 21 d", rng_of([os.path.join(G, "knudsen.json"), os.path.join(G, "knudsen_lineage.json")]), "p"),
             ("Mouse P14 T, LCMV mice 8 d", rng_of([os.path.join(G, "fagerberg.json")]), "p"),
             ("CD4 T, genome-wide (4 donors)", rng_of([os.path.join(U, "cd4_%s_%s.json" % (d, s_)) for d in ("D1", "D2", "D3", "D4") for s_ in ("Rest", "Stim48hr")]), "p"),
-            ("Primary T, CRISPRa, 146 guides", rng_of([os.path.join(G, "schmidt_resting.json"), os.path.join(G, "schmidt_restim.json")]), "p"),
+            ("Primary T, CRISPRa, 146 sgRNAs", rng_of([os.path.join(G, "schmidt_resting.json"), os.path.join(G, "schmidt_restim.json")]), "p"),
             ("Mouse OT-I T, tumour mice 7 d", rng_of([os.path.join(G, "zhou.json")]), "p"),
             ("Primary AML, in vitro", rng_of([os.path.join(G, "cao_invitro.json")]), "p")]
     jin = J(res, "jin2020_clone.json")["classes"]; jv = [v["summary"]["clone_strength"] for v in jin.values()]
@@ -260,7 +260,7 @@ def fig4(v1, res, out):
         ax.text(0.17, (y0 + y1) / 2, lab, ha="right", va="center", fontsize=5.6)
     ax.set_xscale("log"); ax.set_xlim(5e-5, 0.2); ax.minorticks_off()
     ax.set_xticks([1e-4, 1e-3, 1e-2, 1e-1]); ax.set_xticklabels(["0.0001", "0.001", "0.01", "0.1"])
-    ax.set_xlabel("clone strength (shared deviation / per-cell variance)")
+    ax.set_xlabel("clone strength or its upper bound (excess / per-cell variance)")
     P.title(ax, "16 screens")
     P.save(fig, out, "fig4_next")
 
@@ -287,7 +287,7 @@ def fig5(v1, res, out):
     ax.set_xticks(x); ax.set_xticklabels([b[0] for b in bars], fontsize=5.0)
     ax.set_ylim(0, 100); ax.set_yticks([0, 25, 50, 75, 100]); ax.set_ylabel("Share of random-half signal (%)")
     P.title(ax, "CD4, expressed targets")
-    fig.legend(handles=P.patches(((RED, "within one transduction"), ("#e6b0aa", "specific to the guide"), (BLUE, "reproduced by the other guide")))
+    fig.legend(handles=P.patches(((RED, "within one transduction"), ("#e6b0aa", "specific to the sgRNA"), (BLUE, "reproduced by the other sgRNA")))
                , fontsize=5.6, loc="upper left", bbox_to_anchor=(4 / W, 1 - 66 / H),
                handlelength=0.9, labelspacing=0.25, frameon=False)
     # b: cell-eval ceilings (v1 Fig. 4a)
@@ -312,7 +312,7 @@ def fig5(v1, res, out):
         ax.set_yticklabels([l for _, l in mets][::-1] if j == 0 else []); ax.set_xticks([0, 0.5, 1]); ax.set_xticklabels(["0", "0.5", "1"])
         ax.set_xlabel("noise ceiling"); ax.set_title(nm, loc="left", fontsize=6.5, pad=3)
     fig.legend(handles=[Line2D([], [], marker="o", ls="none", color=RED, ms=3, label="random halves"),
-                        Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="guide halves")], fontsize=5.6, loc="upper left",
+                        Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="sgRNA halves")], fontsize=5.6, loc="upper left",
                bbox_to_anchor=(120 / W, 1 - 66 / H), ncol=2, frameon=False)
     # c: reliability labels; d: cell-eval Pearson ceiling of unexpressed targets. Donors ordered by clone concentration
     # (TRBC readout of Supplementary Table S2b: donor 4 < 1 < 2 < 3)
@@ -378,8 +378,8 @@ def fig7(res, notes, out):
     base = np.mean([sc["mean"][d]["inert"][0] for d in sc["mean"]]); ax.axvline(base, color=GREY, lw=0.6, ls=":")
     ax.set_yticks(range(len(keep))); ax.set_yticklabels([l for _, l in keep][::-1], fontsize=5.4)
     ax.set_xlim(-0.03, 0.6); ax.set_xlabel("Pearson r, predicted vs answer")
-    ax.legend(handles=[Line2D([], [], marker="o", ls="none", color=RED, ms=3, label="answer: same guide"),
-                       Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="answer: other guide")], fontsize=5.0, loc="upper right",
+    ax.legend(handles=[Line2D([], [], marker="o", ls="none", color=RED, ms=3, label="answer: same sgRNA"),
+                       Line2D([], [], marker="o", ls="none", color=BLUE, ms=3, label="answer: other sgRNA")], fontsize=5.0, loc="upper right",
               borderaxespad=0.2, handletextpad=0.2)
     P.title(ax, "Four donors, unexpressed targets")
     # b: clone gain against donor clonality
@@ -393,7 +393,7 @@ def fig7(res, notes, out):
         ax.text(xx[-1] + 0.015, yy[-1] + {"copy": -0.012, "linear": 0, "state_transition": 0.012}[m], {"copy": "copy", "linear": "linear", "state_transition": "STATE"}[m], va="center", fontsize=5.6)
     for d in order:
         ax.text(vc[d], 0.56, d, ha="center", fontsize=5.6)
-    ax.set_xlim(0.1, 0.66); ax.set_ylim(0, 0.6); ax.set_xlabel("TRBC readout (as in Fig. 4b)"); ax.set_ylabel("score difference,\nsame − other guide")
+    ax.set_xlim(0.1, 0.66); ax.set_ylim(0, 0.6); ax.set_xlabel("TRBC readout (as in Fig. 4b)"); ax.set_ylabel("score difference,\nsame − other sgRNA")
     P.title(ax, "Four donors")
     # c: answer from another donor (same guide sequence, separate transduction)
     xd = J(res, "cross_donor.json")["pairs"]
@@ -467,7 +467,7 @@ def fig6(v1, res, out):
     # c: reproducible energy of the two parts; the specific share goes into the legend labels
     ax = P.axmm(fig, W, H, 14, 67, 44, 31); P.letter(fig, W, H, 2, 55, "c")
     x = np.arange(2); w = 0.36
-    for j, (k, col, nm) in enumerate((("random_r1", RED, "random halves"), ("guide", BLUE, "guide halves"))):
+    for j, (k, col, nm) in enumerate((("random_r1", RED, "random halves"), ("guide", BLUE, "sgRNA halves"))):
         g = ci[k]["gamma_share"][0]
         ax.bar(x + (j - 0.5) * w, [ci[k]["beta_cross_per_target"], ci[k]["gamma_cross_per_target"]], w, color=col,
                label="%s (specific share %.2f)" % (nm, g))
@@ -534,7 +534,7 @@ def fig1_next(out):
     panel_letter(ax, 2, H - 1.5, "a")
     label(ax, 8, H - 4, "Pooled screen: random halves and independent replicates", fontsize=7)
     label(ax, 29, 108.5, "transduction and expansion", ha="center", fontsize=8, fontweight="bold")
-    for gi, (gy, cols, gname) in enumerate(((97, G1, "guide 1"), (80, G2, "guide 2"))):
+    for gi, (gy, cols, gname) in enumerate(((97, G1, "sgRNA 1"), (80, G2, "sgRNA 2"))):
         label(ax, 12.5, gy, gname, ha="center", fontsize=6.5, color=cols[0], fontweight="bold")
         arrow(ax, 18.8, gy, 23.5, gy, c=cols[0], lw=0.7, ms=5)
         for k, c in enumerate(cols):
@@ -568,7 +568,7 @@ def fig1_next(out):
     label(ax, 88, 69, "same clones in both halves", ha="center", fontsize=6.5, color=RED)
     # independent replicates: each side holds the clones of one guide only
     label(ax, 150.5, 108.5, "independent replicates", ha="center", fontsize=8, color=BLUE, fontweight="bold"); rule(ax, 133, 168, 106.2, BLUE)
-    for x0, cols, nm in ((124.5, G1, "guide 1 cells"), (151.5, G2, "guide 2 cells")):
+    for x0, cols, nm in ((124.5, G1, "sgRNA 1 cells"), (151.5, G2, "sgRNA 2 cells")):
         card(ax, x0, 76, 25, 27, ec="#d5d8dc", z=0.5)
         for k, n in enumerate((9, 3, 1)):
             ringed(x0 + (7.0, 16.0, 21.6)[k], 89.5, cols[k], n)
@@ -610,12 +610,12 @@ def fig1_next(out):
     for x, t in zip(xs, ["system (screens)", "null perturbations", "direct clone test"]):
         label(ax, x, 51.3, t, fontsize=5.8, fontweight="bold")
     ax.plot([x0, x1], [48.6, 48.6], color="k", lw=0.4)
-    rows = [("primary CD4 T cells, 4 donors (1)", "NT guides; unex-\npressed targets", "TRBC halves"),
-            ("brain organoids (1)", "control guide", "clone barcodes"),
-            ("T cells transferred into mice (3)", "control guides", "–"),
-            ("other primary cells in vitro (2)", "control guides", "–"),
-            ("mouse brain in vivo (2)", "control guides", "–"),
-            ("cell lines (7)", "control guides", "–")]
+    rows = [("primary CD4 T cells, 4 donors (1)", "NT sgRNAs; unex-\npressed targets", "constant-region\nhalves"),
+            ("brain organoids (1)", "control sgRNA", "clone barcodes"),
+            ("T cells transferred into mice (3)", "control sgRNAs", "–"),
+            ("other primary cells in vitro (2)", "control sgRNAs", "donor halves (1)"),
+            ("mouse brain in vivo (2)", "control sgRNAs", "–"),
+            ("cell lines (7)", "control sgRNAs", "–")]
     for i, r in enumerate(rows):
         y = 45.0 - i * 5.6
         for x, t in zip(xs, r):
